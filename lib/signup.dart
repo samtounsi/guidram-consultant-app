@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:guideram/Main_Screen.dart';
 
 import 'choose.dart';
 
@@ -116,7 +117,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                              return Main_Screen();
+                            }));
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),

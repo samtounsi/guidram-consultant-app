@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:guideram/choose.dart';
 import 'package:guideram/signup.dart';
 
@@ -17,8 +18,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backwardsCompatibility: false,
+          systemOverlayStyle:SystemUiOverlayStyle(
+            statusBarColor: Colors.white38,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        ),
         colorScheme: ThemeData().colorScheme.copyWith(
-              primary: const Color.fromARGB(255, 127, 15, 218),
+          primary: Colors.purple[800],
             ),
       ),
       title: 'Guideram',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Expert_Screen.dart';
 
 class RegisterPage1 extends StatefulWidget {
   const RegisterPage1({Key? key, required this.title}) : super(key: key);
@@ -71,7 +72,11 @@ class _RegisterPage1State extends State<RegisterPage1> {
                         color: Color.fromARGB(255, 106, 27, 154), width: 2),
                     shape: StadiumBorder(),
                     elevation: 5),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                    return Expert_Screen();
+                  }));
+                },
                 icon: Icon(
                   Icons.auto_awesome,
                   size: 40,

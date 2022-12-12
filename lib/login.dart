@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:guideram/Main_Screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -34,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(
+                    height: 150.0,
+                  ),
                   const Text(
                     'Login',
                     style: TextStyle(
@@ -87,7 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {}
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                return Main_Screen();
+                              }));
+                            }
                           },
                           style: OutlinedButton.styleFrom(
                               padding:
