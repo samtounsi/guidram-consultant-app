@@ -1,106 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:guideram/Expert_Screen.dart';
+import 'package:guideram/signup.dart';
 
-class RegisterPage1 extends StatefulWidget {
-  const RegisterPage1({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<RegisterPage1> createState() => _RegisterPage1State();
-}
-
-class _RegisterPage1State extends State<RegisterPage1> {
-  final _formKey = GlobalKey<FormState>();
-  var rememberValue = false;
-
+class choose extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-            Color.fromARGB(255, 226, 244, 255),
-            Color.fromARGB(255, 75, 169, 228)
-          ])),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
-          padding: const EdgeInsets.all(20),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'I am:',
-                style: TextStyle(
-                  fontFamily: 'Courgette',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 50,
-                ),
+            children: [
+              SizedBox(
+                height:200.0,
               ),
-              const SizedBox(
+              Row(
+                children: [
+                  SizedBox(
+                    width:75,
+                  ),
+                  Text(
+                    'Choose a type:',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
                 height: 60,
               ),
               ElevatedButton.icon(
-                style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.fromLTRB(70, 20, 70, 20),
-                    foregroundColor: Color.fromARGB(255, 226, 244, 255),
-                    side: BorderSide(
-                        color: Color.fromARGB(255, 106, 27, 154), width: 2),
-                    shape: StadiumBorder(),
-                    elevation: 5),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/users');
-                },
-                icon: Icon(
-                  Icons.supervisor_account_rounded,
-                  size: 40,
-                ),
-                label: Text('User',
-                    style: TextStyle(fontSize: 30, fontFamily: 'Courgette')),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.fromLTRB(70, 20, 70, 20),
-                    foregroundColor: Color.fromARGB(255, 226, 244, 255),
-                    side: BorderSide(
-                        color: Color.fromARGB(255, 106, 27, 154), width: 2),
-                    shape: StadiumBorder(),
-                    elevation: 5),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                    return Expert_Screen();
-                  }));
-                },
-                icon: Icon(
-                  Icons.auto_awesome,
-                  size: 40,
-                ),
-                label: Text(
-                  'Expert',
-                  style: TextStyle(fontSize: 26, fontFamily: 'Courgette'),
-                ),
-              ),
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(70, 20, 70, 20),
+                      foregroundColor:Colors.purple.shade800,
+                      side: BorderSide(
+                          color: Colors.purple.shade800,
+                          width:3),
+                      shape: StadiumBorder(),
+                      elevation: 6),
+                  icon: Icon(
+                    Icons.supervisor_account_rounded,
+                    size:30,
+                  ),
+                  label: Text('User',
+                    style: TextStyle(
+                      fontSize:30,
+                    ),
+                  ),
+                  onPressed: () {
+//Navigation
+                    Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                      return User_Screen();
+                    }));
+                  }),
               SizedBox(
                 height: 50,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Already registered?'),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: const Text('Login'),
+              ElevatedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(70, 20, 70, 20),
+                      foregroundColor:Colors.purple.shade800,
+                      side: BorderSide(
+                          color: Colors.purple.shade800,
+                          width:3),
+                      shape: StadiumBorder(),
+                      elevation: 5),
+                  icon: Icon(
+                    Icons.auto_awesome,
+                    size:30,
                   ),
-                ],
-              )
+                  label: Text('Expert',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  onPressed: () {
+//Navigation
+                    Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                      return Expert_Screen();
+                    }));
+                  }),
             ],
           ),
         ),

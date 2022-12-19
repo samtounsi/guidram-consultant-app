@@ -29,6 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
   flutter:
     sdk: flutter
 
@@ -39,6 +40,9 @@ dependencies:
   email_validator: ^2.1.17
   getwidget: ^3.0.1
   http: ^0.13.5
+  dio: ^4.0.6
+  image_picker: ^0.8.6
+
 
 dev_dependencies:
   flutter_test:

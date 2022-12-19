@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Expert_Screen extends StatefulWidget {
   @override
@@ -21,19 +24,34 @@ class _Expert_ScreenState extends State<Expert_Screen> {
   var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      debugPrint('image picked successfully');
+      return imageTemp;
+    } on PlatformException catch (e) {
+      debugPrint('Failed to pick image: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    var vendorProfile;
+    var SvgPicture;
+    var image;
+    var apiUrl;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
           ),
-          onPressed: (){
-            //Navigation
-            Navigator.of(context).push(MaterialPageRoute(builder:(context){
-              return RegisterPage1(title: '',);
+          onPressed: () {
+//Navigation
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return choose();
             }));
           },
         ),
@@ -52,29 +70,39 @@ class _Expert_ScreenState extends State<Expert_Screen> {
           child: SingleChildScrollView(
             child: Form(
               key: FormKey,
-              child: Column(
+             child: Column(
                 children: [
                   Stack(
                     alignment: AlignmentDirectional.bottomCenter,
                     children: [
-                      CircleAvatar(
+                      /*const CircleAvatar(
                         radius: 50.0,
-                        backgroundImage:AssetImage('assets/images/profile.png'),
-                      ),
+                        backgroundImage:
+                        AssetImage('assets/images/profile.png'),
+                      ),*/
+              Container(
+                width: 95,
+                height: 95,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xffE6E6E6),
+                  border: Border.all(color: const Color(0xff707070)),
+                ),
+              ),
                       IconButton(
-                        icon:Icon(
+                        icon: Icon(
                           color: Colors.purple[800],
                           Icons.camera_alt_outlined,
                           size: 28.0,
                         ),
-                        onPressed: (){
-
+                        onPressed: () {
+                          pickImage();
                         },
                       )
                     ],
                   ),
                   SizedBox(
-                    height:20.0,
+                    height: 20.0,
                   ),
                   TextFormField(
                     maxLines: 1,
@@ -230,12 +258,12 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       onPressed: () {
                         if (FormKey.currentState!.validate()) {
                           print(emailController.text);
-                          print(passwordController.text);
                           print(NameController.text);
                           print(phoneController.text);
                           print(AddressController.text);
                           //Navigation
-                          Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
                             return Main_Screen();
                           }));
                         }
