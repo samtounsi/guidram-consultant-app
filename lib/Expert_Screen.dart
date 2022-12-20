@@ -21,6 +21,8 @@ class _Expert_ScreenState extends State<Expert_Screen> {
 
   var AddressController = TextEditingController();
 
+  var ExperienceController = TextEditingController();
+
   var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
@@ -35,6 +37,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
       debugPrint('Failed to pick image: $e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var vendorProfile;
@@ -70,7 +73,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
           child: SingleChildScrollView(
             child: Form(
               key: FormKey,
-             child: Column(
+              child: Column(
                 children: [
                   Stack(
                     alignment: AlignmentDirectional.bottomCenter,
@@ -80,15 +83,15 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                         backgroundImage:
                         AssetImage('assets/images/profile.png'),
                       ),*/
-              Container(
-                width: 95,
-                height: 95,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xffE6E6E6),
-                  border: Border.all(color: const Color(0xff707070)),
-                ),
-              ),
+                      Container(
+                        width: 95,
+                        height: 95,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xffE6E6E6),
+                          border: Border.all(color: const Color(0xff707070)),
+                        ),
+                      ),
                       IconButton(
                         icon: Icon(
                           color: Colors.purple[800],
@@ -161,7 +164,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                   TextFormField(
                     maxLines: 1,
                     controller: AddressController,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.streetAddress,
                     onFieldSubmitted: (String value) {
                       print(value);
                     },
@@ -220,9 +223,17 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: _obscureText,
-                    validator: (String? value) {
-                      if (value != null && value.isEmpty) {
-                        return "Your password can't be empty";
+                    validator: (Value){
+                      RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                      var passValue=Value??"";
+                      if(passValue.isEmpty){
+                        return ("Password is required");
+                      }
+                      else if(passValue.length<6){
+                        return ("Password Must be more than 5 characters");
+                      }
+                      else if(!regex.hasMatch(passValue)){
+                        return ("Password should contain upper,lower and digit character ");
                       }
                       return null;
                     },
@@ -249,6 +260,31 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                     ),
                   ),
                   SizedBox(
+                    height: 30.0,
+                  ),
+                  TextFormField(
+                    maxLines: 3,
+                    controller: ExperienceController,
+                    keyboardType: TextInputType.text,
+                    onFieldSubmitted: (String value) {
+                      print(value);
+                    },
+                    validator: (String? value) {
+                      if (value != null && value.isEmpty) {
+                        return "Your email can't be empty";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Experiences in detail',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                        color: Colors.purple[800],
+                        Icons.description_outlined,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
                     height: 25.0,
                   ),
                   Container(
@@ -261,6 +297,8 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                           print(NameController.text);
                           print(phoneController.text);
                           print(AddressController.text);
+                          print(passwordController.text);
+                          print(ExperienceController.text);
                           //Navigation
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {

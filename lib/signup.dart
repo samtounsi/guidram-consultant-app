@@ -161,9 +161,17 @@ class _User_ScreenState extends State<User_Screen> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: _obscureText,
-                    validator: (String? value) {
-                      if (value != null && value.isEmpty) {
-                        return "Your password can't be empty";
+                    validator: (Value){
+                      RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                      var passValue=Value??"";
+                      if(passValue.isEmpty){
+                        return ("Password is required");
+                      }
+                      else if(passValue.length<6){
+                        return ("Password Must be more than 5 characters");
+                      }
+                      else if(!regex.hasMatch(passValue)){
+                        return ("Password should contain upper,lower and digit character ");
                       }
                       return null;
                     },

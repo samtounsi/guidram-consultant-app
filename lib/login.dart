@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
@@ -88,9 +87,17 @@ class _LoginState extends State<Login> {
                       controller: passwordController,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: _obscureText,
-                      validator: (String? value) {
-                        if (value != null && value.isEmpty) {
-                          return "Your password can't be empty";
+                      validator: (Value){
+                        RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                        var passValue=Value??"";
+                        if(passValue.isEmpty){
+                          return ("Password is required");
+                        }
+                        else if(passValue.length<6){
+                          return ("Password Must be more than 5 characters");
+                        }
+                        else if(!regex.hasMatch(passValue)){
+                          return ("Password should contain upper,lower and digit character ");
                         }
                         return null;
                       },
@@ -124,7 +131,15 @@ class _LoginState extends State<Login> {
                       child: MaterialButton(
                         height: 20.0,
                         onPressed: () {
-
+                          if (FormKey.currentState!.validate()) {
+                            print(emailController.text);
+                            print(passwordController.text);
+                            //Navigation
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return Main_Screen();
+                            }));
+                          }
                         },
                         child: Text(
                           'login',
