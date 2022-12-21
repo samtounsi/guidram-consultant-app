@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import "package:http/http.dart" as http;
+import 'dart:convert';
 
 class User_Screen extends StatefulWidget {
 
@@ -10,16 +12,45 @@ class User_Screen extends StatefulWidget {
 
 class _User_ScreenState extends State<User_Screen> {
   var NameController = TextEditingController();
-
   var phoneController = TextEditingController();
-
   var emailController = TextEditingController();
-
   var passwordController = TextEditingController();
-
   var FormKey = GlobalKey<FormState>();
 
+  var uri = Uri.parse('http://192.168.137.235:8000/api/user/register');
+
+
+  postRequest() async {
+    try {
+      var response = await http.post(uri,body: {
+        'name' : NameController.text,
+        'phone' : phoneController.text,
+        "email":emailController.text,
+        "password":passwordController.text,
+      });
+      var responseData = json.decode(response.body);
+
+      String token = responseData['token'];
+      if(!token.isEmpty) {
+        //  store in some state managament
+        Navigator.of(context).push(MaterialPageRoute(builder:(context){
+          return Main_Screen();
+        }));
+      } else {
+        print("err");
+        //  navigate to error screen
+      }
+    } catch(e) {
+      print(e);
+      //  navigate3 to error screen
+    }
+  }
+
+
   bool _obscureText = true;
+  isValid() {
+    return FormKey.currentState!.validate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,15 +236,8 @@ class _User_ScreenState extends State<User_Screen> {
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
-                        if (FormKey.currentState!.validate()) {
-                          print(emailController.text);
-                          print(passwordController.text);
-                          print(NameController.text);
-                          print(phoneController.text);
-//Navigation
-                          Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                            return Main_Screen();
-                          }));
+                        if (isValid()) {
+                          postRequest();
                         }
                       },
                       child: Text(

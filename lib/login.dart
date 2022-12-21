@@ -10,10 +10,40 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+// var uri = 'http://10.0.0.2/8000'
+
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
-
   var passwordController = TextEditingController();
+
+  var uri = 'http://192.168.137.235/api/login';
+  postRequest() async {
+    try {
+      var response = await http.post(Uri.parse(uri),body: {
+        'email' : emailController.text,
+        "password" : passwordController.text
+
+      });
+      var responseData = json.decode(response.body);
+      String token = responseData['token'];
+      if(!token.isEmpty) {
+        //  store in some state managament
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) {
+          return Main_Screen();
+        }));
+      } else {
+        print("errrrrrrrrrrr");
+        //  navigate to error screen
+      }
+    } catch(e) {
+        print(e);
+        //  navigate3 to error screen
+      }
+    }
+
+
+
 
   var FormKey = GlobalKey<FormState>();
 
@@ -40,6 +70,7 @@ class _LoginState extends State<Login> {
                       height: 150.0,
                     ),
                     Row(
+                      //on press : postRequest
                       children: [
                         SizedBox(
                           width: 95.0,
@@ -132,13 +163,7 @@ class _LoginState extends State<Login> {
                         height: 20.0,
                         onPressed: () {
                           if (FormKey.currentState!.validate()) {
-                            print(emailController.text);
-                            print(passwordController.text);
-                            //Navigation
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return Main_Screen();
-                            }));
+                         postRequest();
                           }
                         },
                         child: Text(
