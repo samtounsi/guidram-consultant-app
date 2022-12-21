@@ -51,6 +51,7 @@ class _LoginState extends State<Login> {
 
   bool _obscureText = true;
 
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -90,28 +91,36 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 80.0,
                     ),
-                    TextFormField(
-                      maxLines: 1,
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      onFieldSubmitted: (String value) {
-                        print(value);
-                      },
-                      validator: (String? value) {
-                        if (value != null && value.isEmpty) {
-                          return "Your email can't be empty";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Email Address',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          color: Colors.purple[800],
-                          Icons.email_outlined,
+                     TextFormField(
+                        maxLines: 1,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        onFieldSubmitted: (String value) {
+                          print(value);
+                        },
+                        validator: (String? value) {
+                          String em =
+                              r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                              r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                              r"{0,253}[a-zA-Z0-9])?)*$";
+                          RegExp regex = RegExp(em);
+                          if (value != null && value.isEmpty) {
+                            return "Your email can't be empty";
+                          }
+                          if ( !regex.hasMatch(value!)){
+                            return 'Enter a valid email address';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Email Address',
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(
+                            color: Colors.purple[800],
+                            Icons.email_outlined,
+                          ),
                         ),
                       ),
-                    ),
                     SizedBox(
                       height: 35.0,
                     ),

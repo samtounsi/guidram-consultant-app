@@ -201,8 +201,14 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       print(value);
                     },
                     validator: (String? value) {
+                      RegExp regex = RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                      r"{0,253}[a-zA-Z0-9])?)*$");
                       if (value != null && value.isEmpty) {
                         return "Your email can't be empty";
+                      }
+                      if ( !regex.hasMatch(value!)){
+                        return 'Enter a valid email address';
                       }
                       return null;
                     },
@@ -271,7 +277,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                     },
                     validator: (String? value) {
                       if (value != null && value.isEmpty) {
-                        return "Your email can't be empty";
+                        return "Your experience can't be empty";
                       }
                       return null;
                     },
@@ -284,6 +290,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       ),
                     ),
                   ),
+
                   SizedBox(
                     height: 25.0,
                   ),
