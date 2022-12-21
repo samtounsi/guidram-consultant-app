@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import "package:http/http.dart" as http;
@@ -16,7 +17,7 @@ class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
-  var uri = 'http://192.168.137.235/api/login';
+  var uri = 'http://192.168.137.15:8000/api/login';
   postRequest() async {
     try {
       var response = await http.post(Uri.parse(uri),body: {
@@ -35,6 +36,9 @@ class _LoginState extends State<Login> {
       } else {
         print("errrrrrrrrrrr");
         //  navigate to error screen
+        Navigator.of(context).push(MaterialPageRoute(builder:(context){
+          return Error_Screen();
+        }));
       }
     } catch(e) {
         print(e);

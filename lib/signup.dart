@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import "package:http/http.dart" as http;
@@ -17,8 +18,8 @@ class _User_ScreenState extends State<User_Screen> {
   var passwordController = TextEditingController();
   var FormKey = GlobalKey<FormState>();
 
-  var uri = Uri.parse('http://192.168.137.235:8000/api/user/register');
 
+  var uri = Uri.parse('http://192.168.137.15:8000/api/user/register');
 
   postRequest() async {
     try {
@@ -28,8 +29,8 @@ class _User_ScreenState extends State<User_Screen> {
         "email":emailController.text,
         "password":passwordController.text,
       });
-      var responseData = json.decode(response.body);
 
+      var responseData = json.decode(response.body);
       String token = responseData['token'];
       if(!token.isEmpty) {
         //  store in some state managament
@@ -38,6 +39,9 @@ class _User_ScreenState extends State<User_Screen> {
         }));
       } else {
         print("err");
+        Navigator.of(context).push(MaterialPageRoute(builder:(context){
+          return Error_Screen();
+        }));
         //  navigate to error screen
       }
     } catch(e) {
@@ -239,6 +243,7 @@ class _User_ScreenState extends State<User_Screen> {
                   ),
                   Container(
                     width: 100.0,
+
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {

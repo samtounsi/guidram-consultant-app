@@ -22,9 +22,9 @@ class _Expert_ScreenState extends State<Expert_Screen> {
   var AddressController = TextEditingController();
 
   var ExperienceController = TextEditingController();
-
   var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  var Select_Consulting = "Medical Consulting";
 
   Future pickImage() async {
     try {
@@ -201,13 +201,14 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       print(value);
                     },
                     validator: (String? value) {
-                      RegExp regex = RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                      r"{0,253}[a-zA-Z0-9])?)*$");
+                      RegExp regex = RegExp(
+                          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?)*$");
                       if (value != null && value.isEmpty) {
                         return "Your email can't be empty";
                       }
-                      if ( !regex.hasMatch(value!)){
+                      if (!regex.hasMatch(value!)) {
                         return 'Enter a valid email address';
                       }
                       return null;
@@ -229,16 +230,15 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: _obscureText,
-                    validator: (Value){
-                      RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-                      var passValue=Value??"";
-                      if(passValue.isEmpty){
+                    validator: (Value) {
+                      RegExp regex = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                      var passValue = Value ?? "";
+                      if (passValue.isEmpty) {
                         return ("Password is required");
-                      }
-                      else if(passValue.length<6){
+                      } else if (passValue.length < 6) {
                         return ("Password Must be more than 5 characters");
-                      }
-                      else if(!regex.hasMatch(passValue)){
+                      } else if (!regex.hasMatch(passValue)) {
                         return ("Password should contain upper,lower and digit character ");
                       }
                       return null;
@@ -290,7 +290,47 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Text(
+                    'Choose the type of consultation that you want:',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w300,
 
+                    ),
+                  ),
+                  SizedBox(
+                    height:5.0,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: DropdownButton(
+                      underline: Divider(color: Colors.purple[800],
+                      height: 5.0),
+                      isExpanded:true,
+                      iconEnabledColor: Colors.purple[800],
+                      items: [
+                        "Medical Consulting",
+                        "Professional Consulting",
+                        "Psychological Consulting",
+                        "Family Consulting",
+                        "Business Consulting",
+                      ]
+                          .map((e) => DropdownMenuItem(
+                                child: Text("$e"),
+                                value: e,
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                       setState(() {
+                         Select_Consulting = value! ;
+                       });
+                      },
+                      value: Select_Consulting,
+                    ),
+                  ),
                   SizedBox(
                     height: 25.0,
                   ),
