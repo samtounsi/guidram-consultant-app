@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import 'package:image_picker/image_picker.dart';
+import "globalvariables.dart" as globals;
+import "package:http/http.dart" as http;
+import 'dart:convert';
 
 class Expert_Screen extends StatefulWidget {
   @override
@@ -22,9 +26,47 @@ class _Expert_ScreenState extends State<Expert_Screen> {
   var AddressController = TextEditingController();
 
   var ExperienceController = TextEditingController();
-  var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  var FormKey = GlobalKey<FormState>();
   var Select_Consulting = "Medical Consulting";
+
+  var uri = Uri.parse("${globals.Uri}/api/expert/register");
+  postRequest() async {
+    try {
+      var response = await http.post(uri, body: {
+        'name': NameController.text,
+        'phone': phoneController.text,
+        'address': AddressController.text,
+        "email": emailController.text,
+        "password": passwordController.text,
+        'is_expert':'1',
+        'experience': ExperienceController.text,
+      });
+
+      var responseData = json.decode(response.body);
+      String token = responseData['token'];
+      if (!token.isEmpty) {
+        //  store in some state managament
+        globals.tokken = token;
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return Main_Screen();
+        }));
+      } else {
+        print("err");
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return Error_Screen();
+        }));
+        //  navigate to error screen
+      }
+    } catch (e) {
+      print(e);
+      //  navigate3 to error screen
+    }
+  }
+  isValid() {
+    return FormKey.currentState!.validate();
+  }
+
 
   Future pickImage() async {
     try {
@@ -339,18 +381,8 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
-                        if (FormKey.currentState!.validate()) {
-                          print(emailController.text);
-                          print(NameController.text);
-                          print(phoneController.text);
-                          print(AddressController.text);
-                          print(passwordController.text);
-                          print(ExperienceController.text);
-                          //Navigation
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Main_Screen();
-                          }));
+                        if (isValid()) {
+                          postRequest();
                         }
                       },
                       child: Text(

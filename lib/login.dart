@@ -12,8 +12,6 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-// var uri = 'http://10.0.0.2/8000'
-
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
