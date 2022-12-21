@@ -4,9 +4,9 @@ import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
+import "globalvariables.dart" as globals;
 
 class User_Screen extends StatefulWidget {
-
   @override
   State<User_Screen> createState() => _User_ScreenState();
 }
@@ -17,39 +17,36 @@ class _User_ScreenState extends State<User_Screen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var FormKey = GlobalKey<FormState>();
-
-
-  var uri = Uri.parse('http://192.168.137.15:8000/api/user/register');
-
+  var uri = Uri.parse("${globals.Uri}/api/user/register");
   postRequest() async {
     try {
-      var response = await http.post(uri,body: {
-        'name' : NameController.text,
-        'phone' : phoneController.text,
-        "email":emailController.text,
-        "password":passwordController.text,
+      var response = await http.post(uri, body: {
+        'name': NameController.text,
+        'phone': phoneController.text,
+        "email": emailController.text,
+        "password": passwordController.text,
       });
 
       var responseData = json.decode(response.body);
       String token = responseData['token'];
-      if(!token.isEmpty) {
+      if (!token.isEmpty) {
         //  store in some state managament
-        Navigator.of(context).push(MaterialPageRoute(builder:(context){
+        globals.tokken = token;
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return Main_Screen();
         }));
       } else {
         print("err");
-        Navigator.of(context).push(MaterialPageRoute(builder:(context){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return Error_Screen();
         }));
         //  navigate to error screen
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
       //  navigate3 to error screen
     }
   }
-
 
   bool _obscureText = true;
   isValid() {
@@ -65,9 +62,9 @@ class _User_ScreenState extends State<User_Screen> {
           icon: const Icon(
             Icons.arrow_back,
           ),
-          onPressed: (){
+          onPressed: () {
 //Navigation
-            Navigator.of(context).push(MaterialPageRoute(builder:(context){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return choose();
             }));
           },
@@ -94,22 +91,21 @@ class _User_ScreenState extends State<User_Screen> {
                     children: [
                       const CircleAvatar(
                         radius: 50.0,
-                        backgroundImage:AssetImage('assets/images/profile.png'),
+                        backgroundImage:
+                            AssetImage('assets/images/profile.png'),
                       ),
                       IconButton(
-                        icon:Icon(
+                        icon: Icon(
                           color: Colors.purple[800],
                           Icons.camera_alt_outlined,
                           size: 28.0,
                         ),
-                        onPressed: (){
-
-                        },
+                        onPressed: () {},
                       )
                     ],
                   ),
                   SizedBox(
-                    height:20.0,
+                    height: 20.0,
                   ),
                   TextFormField(
                     maxLines: 1,
@@ -162,7 +158,6 @@ class _User_ScreenState extends State<User_Screen> {
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: 30.0,
                   ),
@@ -174,13 +169,14 @@ class _User_ScreenState extends State<User_Screen> {
                       print(value);
                     },
                     validator: (String? value) {
-                      RegExp regex = RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-                      r"{0,253}[a-zA-Z0-9])?)*$");
+                      RegExp regex = RegExp(
+                          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?)*$");
                       if (value != null && value.isEmpty) {
                         return "Your email can't be empty";
                       }
-                      if ( !regex.hasMatch(value!)){
+                      if (!regex.hasMatch(value!)) {
                         return 'Enter a valid email address';
                       }
                       return null;
@@ -202,16 +198,15 @@ class _User_ScreenState extends State<User_Screen> {
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: _obscureText,
-                    validator: (Value){
-                      RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-                      var passValue=Value??"";
-                      if(passValue.isEmpty){
+                    validator: (Value) {
+                      RegExp regex = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                      var passValue = Value ?? "";
+                      if (passValue.isEmpty) {
                         return ("Password is required");
-                      }
-                      else if(passValue.length<6){
+                      } else if (passValue.length < 6) {
                         return ("Password Must be more than 5 characters");
-                      }
-                      else if(!regex.hasMatch(passValue)){
+                      } else if (!regex.hasMatch(passValue)) {
                         return ("Password should contain upper,lower and digit character ");
                       }
                       return null;
@@ -243,7 +238,6 @@ class _User_ScreenState extends State<User_Screen> {
                   ),
                   Container(
                     width: 100.0,
-
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {

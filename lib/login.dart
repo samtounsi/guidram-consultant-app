@@ -5,6 +5,7 @@ import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
+import "globalvariables.dart" as globals;
 
 class Login extends StatefulWidget {
   @override
@@ -17,18 +18,19 @@ class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
-  var uri = 'http://192.168.137.15:8000/api/login';
+  var uri = '${globals.Uri}/api/login';
   postRequest() async {
     try {
       var response = await http.post(Uri.parse(uri),body: {
         'email' : emailController.text,
         "password" : passwordController.text
-
       });
       var responseData = json.decode(response.body);
       String token = responseData['token'];
       if(!token.isEmpty) {
         //  store in some state managament
+        globals.tokken=token;
+
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) {
           return Main_Screen();
