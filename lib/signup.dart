@@ -3,7 +3,7 @@ import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
-
+import "globalvariables.dart" as globals ;
 class User_Screen extends StatefulWidget {
 
   @override
@@ -16,10 +16,7 @@ class _User_ScreenState extends State<User_Screen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var FormKey = GlobalKey<FormState>();
-
-  var uri = Uri.parse('http://192.168.137.235:8000/api/user/register');
-
-
+  var uri = Uri.parse("${globals.Uri}/api/user/register");
   postRequest() async {
     try {
       var response = await http.post(uri,body: {
@@ -33,6 +30,7 @@ class _User_ScreenState extends State<User_Screen> {
       String token = responseData['token'];
       if(!token.isEmpty) {
         //  store in some state managament
+        globals.tokken=token;
         Navigator.of(context).push(MaterialPageRoute(builder:(context){
           return Main_Screen();
         }));
