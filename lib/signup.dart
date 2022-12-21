@@ -17,6 +17,7 @@ class _User_ScreenState extends State<User_Screen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var FormKey = GlobalKey<FormState>();
+  bool _obscureText = true;
   var uri = Uri.parse("${globals.Uri}/api/user/register");
   postRequest() async {
     try {
@@ -48,7 +49,6 @@ class _User_ScreenState extends State<User_Screen> {
     }
   }
 
-  bool _obscureText = true;
   isValid() {
     return FormKey.currentState!.validate();
   }

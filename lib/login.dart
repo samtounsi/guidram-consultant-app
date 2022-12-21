@@ -11,10 +11,11 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
-
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var FormKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   var uri = '${globals.Uri}/api/login';
   postRequest() async {
@@ -46,13 +47,9 @@ class _LoginState extends State<Login> {
       }
     }
 
-
-
-
-  var FormKey = GlobalKey<FormState>();
-
-  bool _obscureText = true;
-
+  isValid() {
+    return FormKey.currentState!.validate();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,7 +172,7 @@ class _LoginState extends State<Login> {
                       child: MaterialButton(
                         height: 20.0,
                         onPressed: () {
-                          if (FormKey.currentState!.validate()) {
+                          if (isValid()) {
                          postRequest();
                           }
                         },
