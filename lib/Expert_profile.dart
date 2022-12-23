@@ -7,8 +7,6 @@ class Expert_profile extends StatefulWidget {
 }
 
 class _Expert_profileState extends State<Expert_profile> {
-  bool Medical_Consulting = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,38 +127,6 @@ class _Expert_profileState extends State<Expert_profile> {
                   ),
                 ),
               ],
-            ),
-            SizedBox(
-              height: 13.0,
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Choose the type of consultation that you wish to submit:',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight:FontWeight.w400,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                    Text('Medical Consulting'),
-                    Checkbox(
-                        value:Medical_Consulting,
-                      onChanged:(val)
-                      {
-                        setState(()
-                        {
-
-                        });
-                      },
-                        )
-                    ],
-                  ),
-                ],
-              ),
             ),
           ],
         ),

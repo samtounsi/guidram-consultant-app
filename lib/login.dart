@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
       var responseData = json.decode(response.body);
       String token = responseData['token'];
       if(!token.isEmpty) {
-        //  store in some state managament
+        //  store in some state management
         globals.tokken=token;
 
         Navigator.of(context)
@@ -36,14 +36,9 @@ class _LoginState extends State<Login> {
         }));
       } else {
         print("errrrrrrrrrrr");
-        //  navigate to error screen
-        Navigator.of(context).push(MaterialPageRoute(builder:(context){
-          return Error_Screen();
-        }));
       }
     } catch(e) {
         print(e);
-        //  navigate3 to error screen
       }
     }
 

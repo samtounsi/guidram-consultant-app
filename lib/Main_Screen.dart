@@ -7,6 +7,7 @@ import 'package:guideram/Consulting%20pages/family.dart';
 import 'package:guideram/Expert_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/login.dart';
+import "globalvariables.dart" as globals;
 
 class Main_Screen extends StatelessWidget {
   @override
@@ -43,6 +44,7 @@ class Main_Screen extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () {
+              globals.tokken="";
               //Navigation
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return Login();

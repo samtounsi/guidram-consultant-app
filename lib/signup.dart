@@ -30,22 +30,16 @@ class _User_ScreenState extends State<User_Screen> {
 
       var responseData = json.decode(response.body);
       String token = responseData['token'];
-      if (!token.isEmpty) {
-        //  store in some state managament
+      if(!token.isEmpty) {
         globals.tokken = token;
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return Main_Screen();
         }));
       } else {
         print("err");
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return Error_Screen();
-        }));
-        //  navigate to error screen
       }
     } catch (e) {
       print(e);
-      //  navigate3 to error screen
     }
   }
 
@@ -55,6 +49,11 @@ class _User_ScreenState extends State<User_Screen> {
 
   @override
   Widget build(BuildContext context) {
+   /* if(globals.tokken!=""){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return Main_Screen();
+      }));
+    }*/
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
