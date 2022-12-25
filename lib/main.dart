@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/signup.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner:false,
-      home:expert_profile(),
+      home: Booked_appointments(),
       theme: ThemeData(
         colorScheme: ThemeData().colorScheme.copyWith(
           primary: Colors.purple[800],
