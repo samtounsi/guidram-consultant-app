@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import 'package:image_picker/image_picker.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import "globalvariables.dart" as globals;
@@ -47,6 +50,66 @@ class _User_ScreenState extends State<User_Screen> {
     return FormKey.currentState!.validate();
   }
 
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
+  }
+
+  //show popup dialog
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+      return AlertDialog(
+        shape:
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        title: Text('Please choose media to select'),
+        content: Container(
+          height: MediaQuery.of(context).size.height / 6,
+          child: Column(
+              children: [
+              ElevatedButton(
+              //if user click this button, user can upload image from gallery
+              onPressed: () {
+        Navigator.pop(context);
+        getImage(ImageSource.gallery);
+        },
+          child: Row(
+            children: [
+              Icon(Icons.image),
+              Text('From Gallery'),
+            ],
+          ),
+        ),
+
+                ElevatedButton(
+                  //if user click this button. user can upload image from camera
+                  onPressed: () {
+                    Navigator.pop(context);
+                    getImage(ImageSource.camera);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.camera),
+                      Text('From Camera'),
+                    ],
+                  ),
+                ),
+              ],
+          ),
+        ),
+      );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
    /* if(globals.tokken!=""){
@@ -85,21 +148,38 @@ class _User_ScreenState extends State<User_Screen> {
               key: FormKey,
               child: Column(
                 children: [
-                  Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
+                 Column(
                     children: [
-                      const CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage:
-                            AssetImage('assets/images/profile.png'),
+                      image != null
+                          ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child:ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child:  Image.file(
+                            //to show image, you type like this.
+                            File(image!.path),
+                            fit: BoxFit.cover,
+                            width:110,
+                            height:110,
+                          ),
+                        ),
+                      )
+                          :CircleAvatar(
+                        radius:50.0,
+                        backgroundImage:AssetImage('assets/images/user.png'),
+                      ),
+                      SizedBox(
+                        height:  3.0,
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon:Icon(
                           color: Colors.purple[800],
-                          Icons.camera_alt_outlined,
+                          Icons.camera_alt,
                           size: 28.0,
                         ),
-                        onPressed: () {},
+                        onPressed: (){
+                          myAlert();
+                        },
                       )
                     ],
                   ),

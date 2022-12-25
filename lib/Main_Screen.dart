@@ -62,7 +62,7 @@ class Main_Screen extends StatelessWidget {
           //Navigation
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) {
-            return Expert_profile();
+            return expert_profile();
           }));
         },
       ),

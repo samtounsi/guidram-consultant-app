@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Booked_appointments.dart';
+import 'package:guideram/Counseling_Settings.dart';
+import 'package:guideram/Main_screen.dart';
 import 'package:guideram/login.dart';
 
-class Expert_profile extends StatefulWidget {
-  @override
-  State<Expert_profile> createState() => _Expert_profileState();
-}
+class expert_profile extends StatelessWidget {
+  const expert_profile({Key? key}) : super(key: key);
 
-class _Expert_profileState extends State<Expert_profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
-        titleSpacing: 10.0,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+//Navigation
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return Main_Screen();
+            }));
+          },
+        ),
+        titleSpacing: 99.0,
         title: Text(
-          'profile',
+          'Profile',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 23.0,
+            fontSize: 19.0,
           ),
         ),
         actions: [
@@ -34,99 +46,282 @@ class _Expert_profileState extends State<Expert_profile> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xffE6E6E6),
-                    border: Border.all(color: const Color(0xff707070)),
-                  ),
+            Container(
+              height: 300,
+              width: 500,
+              decoration: BoxDecoration(
+                color: Colors.purple[800],
+                borderRadius: BorderRadiusDirectional.only(
+                  bottomEnd: Radius.circular(30),
+                  bottomStart: Radius.circular(30),
                 ),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              //clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Center(
+                child: Column(
                   children: [
-                    Text(
-                      'Rawan Asa\'ad',
-                    style: TextStyle(
-                      fontSize: 23.0,
-                      fontWeight:FontWeight.w500,
-                    ),
-                    ),
                     SizedBox(
                       height: 10.0,
                     ),
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xffE6E6E6),
+                        border: Border.all(color: const Color(0xff707070)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
                     Text(
-                      '098765544321',
+                      'Rawan Asa\'ad',
                       style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight:FontWeight.w300,
+                        fontSize: 23.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          'Test .........................................................................................................................................................................................................',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
             SizedBox(
-              height: 18.0,
+              height: 10.0,
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.maps_home_work_outlined,
-                  color: Colors.purple[800],
-                  size: 25.0,
-                ),
-                SizedBox(
-                  width: 16.0,
-                ),
-                Text(
-                  'Syria-Damascus-Mazzah86',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight:FontWeight.w300,
-                ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.description_outlined,
-                  color: Colors.purple[800],
-                  size: 28.0,
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines:3,
-                      'Test ..........................................................................................................................................................mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight:FontWeight.w300,
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.email_outlined,
+                          ),
+                          SizedBox(
+                            width: 7.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                'Email',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text('asad.rawan.1@gmail.com'),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
+                      Divider(
+                        color: Colors.purple[800],
+                        height: 40,
+                        indent: 10,
+                        endIndent: 20,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.phone_android,
+                          ),
+                          SizedBox(
+                            width: 7.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                'Phone Number',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text('0997152139'),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        color: Colors.purple[800],
+                        height: 40,
+                        indent: 10,
+                        endIndent: 20,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.maps_home_work_outlined,
+                          ),
+                          SizedBox(
+                            width: 7.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                'Address',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text('Syria-Damascus-Mazzah86'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        color: Colors.purple[800],
+                        height: 40,
+                        indent: 10,
+                        endIndent: 20,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.credit_card,
+                          ),
+                          SizedBox(
+                            width:8.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                'Wallet',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text('10000'),
+                              SizedBox(
+                                height: 25.0,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width:3.0,
+                      ),
+                      Container(
+                        width: 140,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          color: Colors.purple[800],
+
+                        ),
+                        child: MaterialButton(
+                            child: const Text('Counseling settings',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10.0,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                return Counseling_Settings();
+                              }));
+                            }),
+                      ),
+                      const SizedBox(
+                        width:20.0,
+                      ),
+                      Container(
+                        width: 140,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          color: Colors.purple[800],
+                        ),
+                        child: MaterialButton(
+                            child: Text('Booked appointments',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10.0,
+                              ),),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                                return Booked_appointments();
+                              }));
+                            }),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
