@@ -168,9 +168,6 @@ class _User_ScreenState extends State<User_Screen> {
                         radius:50.0,
                         backgroundImage:AssetImage('assets/images/user.png'),
                       ),
-                      SizedBox(
-                        height:  3.0,
-                      ),
                       IconButton(
                         icon:Icon(
                           color: Colors.purple[800],
@@ -184,7 +181,7 @@ class _User_ScreenState extends State<User_Screen> {
                     ],
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 15.0,
                   ),
                   TextFormField(
                     maxLines: 1,
