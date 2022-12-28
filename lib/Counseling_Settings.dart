@@ -19,19 +19,33 @@ class Counseling {
     required this.name,
   });
 }
+
 class _Counseling_SettingsState extends State<Counseling_Settings> {
 
   var PriceController = TextEditingController();
   var DurationController = TextEditingController();
+  var FormKey = GlobalKey<FormState>();
   final multiSelectKey = GlobalKey<FormFieldState>();
+  var selectedtime = 1;
 
   static List<Counseling> con = [
     Counseling(id: 1, name: "Medical"),
-    Counseling(id: 2, name: "Professional "),
+    Counseling(id: 2, name: "Professional"),
     Counseling(id: 3, name: "Psychological"),
     Counseling(id: 4, name: "Family"),
-    Counseling(id: 5, name: " business "),
+    Counseling(id: 5, name: "business"),
   ];
+  String? selectedValue;
+
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("1 hour"),value:'1'),
+      DropdownMenuItem(child: Text("2 hours"),value:'2'),
+      DropdownMenuItem(child: Text("3 hours"),value:'3'),
+    ];
+    return menuItems;
+  }
+
 
   final _items = con
       .map((Con) => MultiSelectItem<Counseling>(Con, Con.name))
@@ -71,6 +85,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
         child: Expanded(
           child: SingleChildScrollView(
             child: Form(
+              key: FormKey,
               child: Column(
                 children: [
                   TextFormField(
@@ -83,15 +98,17 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       print(value);
                     },
                     validator: (value) {
-                      /*RegExp regExp = new RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
-                      if (value != null && value.isEmpty) {
+                      double? num = double.tryParse(value.toString());
+                      if(num == null)
                         return "Price of session can't be empty";
-                      }
-                      RegExp regExp = new RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
-                      if (value<0 && value>10000) {
-                        return "Price of session can't be empty";
-                      }
-                      if (!regExp.hasMatch(value)) {
+                      else if( num > 5)
+                        return 'Please enter value between 1 and 10.000';
+
+                     /*if (value?.length!<0 || value?.length>5 ) {
+                        return "Enter a valid price";
+                      }*/
+                     /* RegExp regExp = new RegExp(r'(/^([1-9]{1,2}|10000)$/)');
+                      if (!regExp.hasMatch(value!)) {
                         return 'Please enter valid number';
                       }*/
                       return null;
@@ -108,9 +125,9 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
-                    height:30.0,
+                    height:35.0,
                   ),
-                  TextFormField(
+                 /* TextFormField(
                     maxLines: 1,
                     controller: DurationController,
                     keyboardType: TextInputType.datetime,
@@ -133,9 +150,30 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                         Icons.access_time,
                       ),
                     ),
-                  ),
+                  ),*/
+                  DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Select the duration of the session',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade800, width: 2),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple.shade800, width: 2),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white
+                      ),
+                      validator: (value) => value == null ? "Select a time" : null,
+                     // dropdownColor:,
+                      value: selectedValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedValue = newValue!;
+                        });
+                      },
+                      items: dropdownItems),
                   const SizedBox(
-                    height:30.0,
+                    height:35.0,
                   ),
                   MultiSelectDialogField(
                     onConfirm: (val) {
@@ -159,6 +197,35 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                   ),
                   const SizedBox(
                     height:30.0,
+                  ),
+                  /*Container(
+                    width: 100.0,
+                    child: MaterialButton(
+                      height: 20.0,
+                      onPressed: () {
+                        if (FormKey.currentState!.validate()) {
+                          print(PriceController.text);
+                          print(DurationController.text);
+                        }
+                      },
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
+                          //fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.purple[800],
+                    ),
+                  ),*/
+                  Row(
+                    children: [
+
+                    ],
                   ),
               ],
             ),
