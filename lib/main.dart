@@ -13,6 +13,7 @@ import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/shared/network/remote/dio_helper.dart';
 import 'package:guideram/signup.dart';*/
+import 'package:loader_overlay/loader_overlay.dart';
 import 'login.dart';
 
 void main() {
@@ -24,14 +25,17 @@ class MyApp extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner:false,
-      home:Counseling_Settings(),
-      theme: ThemeData(
-        colorScheme: ThemeData().colorScheme.copyWith(
-          primary: Colors.purple[800],
+    return GlobalLoaderOverlay(
+      child: MaterialApp(
+        debugShowCheckedModeBanner:false,
+        home:Counseling_Settings(),
+        theme: ThemeData(
+          colorScheme: ThemeData().colorScheme.copyWith(
+            primary: Colors.purple[800],
+          ),
         ),
-      ),
+      )
     );
+
   }
 }

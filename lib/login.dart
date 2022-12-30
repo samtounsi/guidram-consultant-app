@@ -59,7 +59,7 @@ class _LoginState extends State<Login> {
                 Image(
                   image: AssetImage('assets/images/logo2.png'),
                   height: 380,
-                  width: 380,
+                    width: 380,
                 ),
                 Column(
                   children: [

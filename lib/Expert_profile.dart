@@ -2,13 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Main_screen.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
+import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
 
 class expert_profile extends StatelessWidget {
   const expert_profile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    ExpertController expertController=Get.put(ExpertController());
+    //isloading
+    //loaderOverlay is an external dependency so don't think about it a lot (:
+
+
+    //for showing the loader
+    context.loaderOverlay.show();
+
+    //this is the variable for knowing if it is loading data or no
+    print (expertController.isLoading);
+    //for hiding the loader
+    context.loaderOverlay.hide();
+    expertController.fetchExpert(1);
+    print(expertController.isLoading);
+    print(expertController.expert?.name);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -79,7 +97,7 @@ class expert_profile extends StatelessWidget {
                       height: 15.0,
                     ),
                     Text(
-                      'Rawan Asa\'ad',
+                      '${expertController.expert?.name}',
                       style: TextStyle(
                         fontSize: 23.0,
                         color: Colors.white,
@@ -92,7 +110,7 @@ class expert_profile extends StatelessWidget {
                         child: Text(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          'Test .........................................................................................................................................................................................................',
+                          '${expertController.expert?.experience}',
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.white,
@@ -140,7 +158,7 @@ class expert_profile extends StatelessWidget {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('asad.rawan.1@gmail.com'),
+                              Text('${expertController.expert?.email}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -180,7 +198,7 @@ class expert_profile extends StatelessWidget {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('0997152139'),
+                              Text('${expertController.expert?.phone}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -220,7 +238,7 @@ class expert_profile extends StatelessWidget {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('Syria-Damascus-Mazzah86'),
+                              Text('${expertController.expert?.address}'),
                             ],
                           ),
                         ],
@@ -257,7 +275,7 @@ class expert_profile extends StatelessWidget {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('10000'),
+                              Text('${expertController.expert?.wallet}'),
                               SizedBox(
                                 height: 25.0,
                               ),

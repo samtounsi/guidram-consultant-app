@@ -1,50 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:guideram/Main_Screen.dart';
-
-class ExpertsModel{
-  final String name;
-  ExpertsModel({
-    required this.name,
-  });
-}
+import 'package:get/get.dart';
+import 'package:guideram/controllers/expertscontroller.dart';
+import 'package:guideram/model/Experts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class Psychological_Con extends StatelessWidget {
 
-  List< ExpertsModel> experts = [
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Rawan',
-    ),
-    ExpertsModel(
-      name: 'Ahmad',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    ExpertsController expertsController=Get.put(ExpertsController("Psychological"));
+    List<Experts> experts =expertsController.experts;
+
+    //loaderOverlay is an external dependency so don't think about it a lot (:
+
+
+    //for showing the loader
+    context.loaderOverlay.show();
+
+    //this is the variable for knowing if it is loading data or no
+    print (expertsController.isLoading);
+    //for hiding the loader
+    context.loaderOverlay.hide();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -121,7 +99,7 @@ class Psychological_Con extends StatelessWidget {
     );
   }
 
-  Widget buildExpertsitem(ExpertsModel expert) =>
+  Widget buildExpertsitem(Experts expert) =>
       MaterialButton(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:guideram/Main_Screen.dart';
+import 'package:guideram/controllers/expertscontroller.dart';
+import 'package:guideram/model/Experts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class ExpertsModel{
    final String name;
@@ -9,44 +13,72 @@ class ExpertsModel{
    required this.name,
 });
 }
+ExpertsController expertController=Get.put(ExpertsController("medical"));
+List<Experts> experts =expertController.experts;
 
 class Medical_Con extends StatelessWidget {
+  Widget buildExpertsitem(Experts expert) =>
+     MaterialButton(
+        child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        Column(
+          children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 35.0,
+                    backgroundImage: AssetImage('assets/images/profile.png'),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        '${expert.name}',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
 
-  List< ExpertsModel> experts = [
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Rawan',
-    ),
-    ExpertsModel(
-      name: 'Ahmad',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-    ExpertsModel(
-      name: 'Reem',
-    ),
-  ];
+          ],
+        ),
+        Column(
+          children: [
+            Text(
+              '_________________________________________________',
+              style: TextStyle(
+                color: Colors.purple[800],
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+    ],
+  ),
+        onPressed: (){},
+      );
 
   @override
   Widget build(BuildContext context) {
+    //loaderOverlay is an external dependency so don't think about it a lot (:
+
+
+    //for showing the loader
+    context.loaderOverlay.show();
+
+    //this is the variable for knowing if it is loading data or no
+    print (expertController.isLoading);
+       //for hiding the loader
+      context.loaderOverlay.hide();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -105,69 +137,20 @@ class Medical_Con extends StatelessWidget {
                 height: 7.0,
               ),
                  ListView.separated(
-                shrinkWrap: true,  
+                shrinkWrap: true,
                   physics:NeverScrollableScrollPhysics(),
                   scrollDirection:Axis.vertical,
-                  itemBuilder:(context,index) => buildExpertsitem(experts[index]) ,
+                  itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index)) ,
                   separatorBuilder:(context,index) => SizedBox(
                     height:10,
                   ) ,
                   itemCount: experts.length,
                 ),
-           
+
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget buildExpertsitem(ExpertsModel expert) =>
-     MaterialButton(
-        child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-        Column(
-          children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 35.0,
-                    backgroundImage: AssetImage('assets/images/profile.png'),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        '${expert.name}',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              '_________________________________________________',
-              style: TextStyle(
-                color: Colors.purple[800],
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-    ],
-  ),
-        onPressed: (){},
-      );
 }

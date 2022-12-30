@@ -4,14 +4,19 @@ import 'package:guideram/Consulting%20pages/Medical.dart';
 import 'package:guideram/Consulting%20pages/Professional.dart';
 import 'package:guideram/Consulting%20pages/Psychological.dart';
 import 'package:guideram/Consulting%20pages/family.dart';
-import 'package:guideram/Expert_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/login.dart';
+import 'package:get/get.dart';
 import "globalvariables.dart" as globals;
 
+
 class Main_Screen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    Get.delete<ExpertsController>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -94,6 +99,7 @@ class Main_Screen extends StatelessWidget {
                                   .push(MaterialPageRoute(builder: (context) {
                                 return Medical_Con();
                               }));
+
                             },
                           ),
                         ),
