@@ -77,6 +77,32 @@ class Main_Screen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 2.0,
+                ),
+                Container(
+                  padding: EdgeInsets.all(7.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(
+                      1.0,
+                    ),
+                    color: Colors.grey[300],
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.search,
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Text('Search'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 22.0,
+                ),
                 Row(
                   children: [
                     Column(
