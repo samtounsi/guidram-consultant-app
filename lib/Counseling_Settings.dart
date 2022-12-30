@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:inspection/inspection.dart';
 
 class Counseling_Settings extends StatefulWidget {
   const Counseling_Settings({Key? key}) : super(key: key);
@@ -21,12 +22,13 @@ class Counseling {
 }
 
 class _Counseling_SettingsState extends State<Counseling_Settings> {
-
   var PriceController = TextEditingController();
-  var DurationController = TextEditingController();
+  var startController = TextEditingController();
+  var endController = TextEditingController();
   var FormKey = GlobalKey<FormState>();
+  var Form_Key = GlobalKey<FormState>();
   final multiSelectKey = GlobalKey<FormFieldState>();
-  var selectedtime = 1;
+  var Select_day = "Sunday";
 
   static List<Counseling> con = [
     Counseling(id: 1, name: "Medical"),
@@ -45,7 +47,6 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
     ];
     return menuItems;
   }
-
 
   final _items = con
       .map((Con) => MultiSelectItem<Counseling>(Con, Con.name))
@@ -81,7 +82,11 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.only(
+          top: 30,
+          right:25.0 ,
+          left:25.0,
+        ),
         child: Expanded(
           child: SingleChildScrollView(
             child: Form(
@@ -97,11 +102,14 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     onFieldSubmitted: (String value) {
                       print(value);
                     },
-                    validator: (value) {
+                    validator: (input) => inspection(input,'required|float|between:1,10000',
+                    message: 'select a number between 1 and 100000'
+                    ),
+                    /*validator: (value) {
                       double? num = double.tryParse(value.toString());
                       if(num == null)
                         return "Price of session can't be empty";
-                      else if( num > 5)
+                      else if( num<0 || num>10000)
                         return 'Please enter value between 1 and 10.000';
 
                      /*if (value?.length!<0 || value?.length>5 ) {
@@ -112,9 +120,9 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                         return 'Please enter valid number';
                       }*/
                       return null;
-                    },
+                    },*/
                     decoration: InputDecoration(
-                      labelText: 'Price of session',
+                      hintText:  'Price of session',
                       border: OutlineInputBorder(
                         gapPadding: 5.0,
                       ),
@@ -127,30 +135,6 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                   const SizedBox(
                     height:35.0,
                   ),
-                 /* TextFormField(
-                    maxLines: 1,
-                    controller: DurationController,
-                    keyboardType: TextInputType.datetime,
-                    onFieldSubmitted: (String value) {
-                      print(value);
-                    },
-                    validator: (String? value) {
-                      if (value != null && value.isEmpty) {
-                        return "Duration of session can't be empty";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Duration of session',
-                      border: OutlineInputBorder(
-                        gapPadding: 5.0,
-                      ),
-                      prefixIcon: Icon(
-                        color: Colors.purple[800],
-                        Icons.access_time,
-                      ),
-                    ),
-                  ),*/
                   DropdownButtonFormField(
                       decoration: InputDecoration(
                         labelText: 'Select the duration of the session',
@@ -222,16 +206,182 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       color: Colors.purple[800],
                     ),
                   ),*/
-                  Row(
-                    children: [
-
-                    ],
+                  const SizedBox(
+                    height:20.0,
+                  ),
+                  Container(
+                    width: 100.0,
+                    child: MaterialButton(
+                      height: 20.0,
+                      onPressed: () {
+                        FormKey.currentState!.validate();
+                      },
+                      child: Text(
+                        'submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          //fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.purple[800],
+                    ),
+                  ),
+                  const SizedBox(
+                    height:20.0,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:10),
+                    child: DropdownButton(
+                      isExpanded: true,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 15
+                      ),
+                      underline: Divider(color: Colors.purple[800],
+                          height: 2.0),
+                      iconEnabledColor: Colors.purple[800],
+                      items: [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                      ]
+                          .map((e) => DropdownMenuItem(
+                        child: Text("$e"),
+                        value: e,
+                      ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          Select_day = value! ;
+                        });
+                      },
+                      value: Select_day,
+                    ),
+                  ),
+                  const SizedBox(
+                    height:30.0,
+                  ),
+                  Form(
+                    key: Form_Key,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Flexible(
+                          child: TextFormField(
+                            maxLines: 1,
+                            controller: startController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters:<TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            onFieldSubmitted: (String value) {
+                              print(value);
+                            },
+                            validator: (input) => inspection(input,'required|numeric|between:0,23',
+                                message: 'number  0 -> 23'
+                            ),
+                            decoration: InputDecoration(
+                              labelText: 'start',
+                              border: OutlineInputBorder(
+                                gapPadding: 5.0,
+                              ),
+                              prefixIcon: Icon(
+                                color: Colors.purple[800],
+                                Icons.access_time,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Flexible(
+                          child: TextFormField(
+                            maxLines: 1,
+                            controller: endController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters:<TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            onFieldSubmitted: (String value) {
+                              print(value);
+                            },
+                            validator: (input) => inspection(input,'required|numeric|between:1,24',
+                                message: 'number  1 -> 24'
+                            ),
+                            decoration: InputDecoration(
+                              labelText: 'end',
+                              border: OutlineInputBorder(
+                                gapPadding: 5.0,
+                              ),
+                              prefixIcon: Icon(
+                                color: Colors.purple[800],
+                                Icons.access_time_sharp,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height:30.0,
+                  ),
+                  Container(
+                    width: 100.0,
+                    child:MaterialButton(
+                      height: 20.0,
+                      onPressed: () {
+                        if (Form_Key.currentState!.validate()) {
+                          if(int.parse(startController.text)<int.parse(endController.text)){
+                            print(startController.text);
+                            print(endController.text);
+                          }else
+                            _showToast(context);
+                        }
+                      },
+                      child: Text(
+                        'add',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          //fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                     // borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.purple[800],
+                    ),
                   ),
               ],
             ),
           ),
     ),
       ),
+      ),
+    );
+  }
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('The start time must be smaller than the end time'),
+        action: SnackBarAction(label: 'ok', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
