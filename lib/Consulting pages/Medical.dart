@@ -67,19 +67,9 @@ class Medical_Con extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<ExpertsController>();
     ExpertsController expertController=Get.put(ExpertsController("medical"));
     List<Experts> experts =expertController.experts;
-    //loaderOverlay is an external dependency so don't think about it a lot (:
-
-
-    //for showing the loader
-    context.loaderOverlay.show();
-
-    //this is the variable for knowing if it is loading data or no
-    print (expertController.isLoading);
-       //for hiding the loader
-      context.loaderOverlay.hide();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -109,46 +99,50 @@ class Medical_Con extends StatelessWidget {
           ],
         ),
       ),
-      body:Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(7.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(
-                    1.0,
+      body:Obx(
+          ()=> expertController.isLoading.value
+        ?CircularProgressIndicator():
+          Padding(
+          padding: const EdgeInsets.all(8.0),
+          child:SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(7.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(
+                      1.0,
+                    ),
+                    color: Colors.grey[300],
                   ),
-                  color: Colors.grey[300],
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.search,
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Text('Search'),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text('Search'),
-                  ],
+                SizedBox(
+                  height: 7.0,
                 ),
-              ),
-              SizedBox(
-                height: 7.0,
-              ),
-                 ListView.separated(
-                shrinkWrap: true,
-                  physics:NeverScrollableScrollPhysics(),
-                  scrollDirection:Axis.vertical,
-                  itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index)) ,
-                  separatorBuilder:(context,index) => SizedBox(
-                    height:10,
-                  ) ,
-                  itemCount: experts.length,
-                ),
+                   ListView.separated(
+                  shrinkWrap: true,
+                    physics:NeverScrollableScrollPhysics(),
+                    scrollDirection:Axis.vertical,
+                    itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index)) ,
+                    separatorBuilder:(context,index) => SizedBox(
+                      height:10,
+                    ) ,
+                    itemCount: experts.length,
+                  ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

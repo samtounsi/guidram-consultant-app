@@ -12,6 +12,7 @@ class ExpertsController extends GetxController {
   ExpertsController(this.type);
 
   @override
+
   Future <void>onInit() async{
     super.onInit();
     fetchListExpert(type);

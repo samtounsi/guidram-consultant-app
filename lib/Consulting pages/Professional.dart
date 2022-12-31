@@ -12,19 +12,11 @@ class Professional_Con extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<ExpertsController>();
     ExpertsController expertsController=Get.put(ExpertsController("Professional"));
     List<Experts> experts =expertsController.experts;
 
-    //loaderOverlay is an external dependency so don't think about it a lot (:
 
-
-    //for showing the loader
-    context.loaderOverlay.show();
-
-    //this is the variable for knowing if it is loading data or no
-    print (expertsController.isLoading);
-    //for hiding the loader
-    context.loaderOverlay.hide();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -55,7 +47,9 @@ class Professional_Con extends StatelessWidget {
           ],
         ),
       ),
-      body:Padding(
+      body:Obx(
+    ()=> expertsController.isLoading.value
+    ?CircularProgressIndicator():Padding(
         padding: const EdgeInsets.all(8.0),
         child:SingleChildScrollView(
           child: Column(
@@ -98,6 +92,7 @@ class Professional_Con extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 

@@ -3,13 +3,14 @@ import 'package:guideram/Main_Screen.dart';
 import 'package:get/get.dart';
 import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/model/Experts.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+
 
 class Psychological_Con extends StatelessWidget {
 
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<ExpertsController>();
     ExpertsController expertsController=Get.put(ExpertsController("Psychological"));
     List<Experts> experts =expertsController.experts;
 
@@ -17,12 +18,6 @@ class Psychological_Con extends StatelessWidget {
 
 
     //for showing the loader
-    context.loaderOverlay.show();
-
-    //this is the variable for knowing if it is loading data or no
-    print (expertsController.isLoading);
-    //for hiding the loader
-    context.loaderOverlay.hide();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -53,7 +48,9 @@ class Psychological_Con extends StatelessWidget {
           ],
         ),
       ),
-      body:Padding(
+      body:Obx(
+    ()=> expertsController.isLoading.value
+    ?CircularProgressIndicator():Padding(
         padding: const EdgeInsets.all(8.0),
         child:SingleChildScrollView(
           child: Column(
@@ -96,7 +93,7 @@ class Psychological_Con extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ),);
   }
 
   Widget buildExpertsitem(Experts expert) =>

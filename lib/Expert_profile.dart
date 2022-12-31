@@ -18,12 +18,11 @@ class expert_profile extends StatelessWidget {
 
 
     //for showing the loader
-    context.loaderOverlay.show();
+
 
     //this is the variable for knowing if it is loading data or no
     print (expertController.isLoading);
     //for hiding the loader
-    context.loaderOverlay.hide();
     expertController.fetchExpert(1);
     print(expertController.isLoading);
     print(expertController.expert?.name);
@@ -65,7 +64,10 @@ class expert_profile extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child:  Obx(
+    ()=> expertController.isLoading.value
+    ?CircularProgressIndicator():
+    Column(
           children: [
             Container(
               height: 300,
@@ -342,6 +344,7 @@ class expert_profile extends StatelessWidget {
               ),
             ),
           ],
+        ),
         ),
       ),
     );

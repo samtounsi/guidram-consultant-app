@@ -15,7 +15,7 @@ class Main_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.delete<ExpertsController>();
+
 
     return Scaffold(
       appBar: AppBar(

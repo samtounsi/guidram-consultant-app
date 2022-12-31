@@ -25,8 +25,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GlobalLoaderOverlay(
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner:false,
         home:expert_user_screen(),
         theme: ThemeData(
@@ -34,8 +33,7 @@ class MyApp extends StatelessWidget {
             primary: Colors.purple[800],
           ),
         ),
-      )
-    );
+      );
 
   }
 }
