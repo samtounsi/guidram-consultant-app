@@ -7,13 +7,13 @@ import 'package:loader_overlay/loader_overlay.dart';
 import '../model/Experts.dart';
 
 
-ExpertsController expertsController=Get.put(ExpertsController("Professional"));
-List<Experts> experts =expertsController.experts;
 
 class Professional_Con extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ExpertsController expertsController=Get.put(ExpertsController("Professional"));
+    List<Experts> experts =expertsController.experts;
 
     //loaderOverlay is an external dependency so don't think about it a lot (:
 

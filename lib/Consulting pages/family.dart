@@ -10,20 +10,17 @@ class ExpertsModel{
     required this.name,
   });
 }
-ExpertsController expertController=Get.put(ExpertsController("Familial"));
-List<Experts> experts =expertController.experts;
+
 class family_Con extends StatelessWidget {
 
 
   @override
   Widget build(BuildContext context) {
-
+    ExpertsController expertController=Get.put(ExpertsController("Familial"));
+    List<Experts> experts =expertController.experts;
     //loaderOverlay is an external dependency so don't think about it a lot (:
-
-
     //for showing the loader
     context.loaderOverlay.show();
-
     //this is the variable for knowing if it is loading data or no
     print (expertController.isLoading);
     //for hiding the loader
@@ -52,7 +49,7 @@ class family_Con extends StatelessWidget {
             Text(
               'Family Consulting',
               style: TextStyle(color: Colors.white,
-              fontSize: 15.0,
+                fontSize: 15.0,
               ),
             ),
           ],

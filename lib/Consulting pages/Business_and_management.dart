@@ -10,15 +10,15 @@ class ExpertsModel{
     required this.name,
   });
 }
-ExpertsController expertController=Get.put(ExpertsController("Business"));
-List<Experts> experts =expertController.experts;
+
 class Business_Con extends StatelessWidget {
 
 
 
   @override
   Widget build(BuildContext context) {
-
+    ExpertsController expertController=Get.put(ExpertsController("Business"));
+    List<Experts> experts =expertController.experts;
     //loaderOverlay is an external dependency so don't think about it a lot (:
 
 
