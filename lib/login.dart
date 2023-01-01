@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import 'package:guideram/controllers/authController.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import "globalvariables.dart" as globals;
-
+import "package:get/get.dart";
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
@@ -17,30 +18,32 @@ class _LoginState extends State<Login> {
   var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
-  var uri = '${globals.Uri}/api/login';
-  postRequest() async {
-    try {
-      var response = await http.post(Uri.parse(uri),body: {
-        'email' : emailController.text,
-        "password" : passwordController.text
-      });
-      var responseData = json.decode(response.body);
-      String token = responseData['token'];
-      if(!token.isEmpty) {
-        //  store in some state management
-        globals.tokken=token;
-
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) {
-          return Main_Screen();
-        }));
-      } else {
-        print("errrrrrrrrrrr");
-      }
-    } catch(e) {
-        print(e);
-      }
-    }
+  // var uri = '${globals.Uri}/api/login';
+  // postRequest() async {
+  //   try {
+  //     var response = await http.post(Uri.parse(uri),body: {
+  //       'email' : emailController.text,
+  //       "password" : passwordController.text
+  //     });
+  //     var responseData = json.decode(response.body);
+  //     String token = responseData['token'];
+  //     if(!token.isEmpty) {
+  //       //  store in some state management
+  //       globals.tokken=token;
+  //
+  //       Navigator.of(context)
+  //           .push(MaterialPageRoute(builder: (context) {
+  //         return Main_Screen();
+  //       }));
+  //     } else {
+  //       print("errrrrrrrrrrr");
+  //     }
+  //   } catch(e) {
+  //       print(e);
+  //     }
+  //   }
+  //old code
+  AuthController authController=Get.put(AuthController());
 
   isValid() {
     return FormKey.currentState!.validate();
@@ -162,13 +165,23 @@ class _LoginState extends State<Login> {
                     const SizedBox(
                       height: 40.0,
                     ),
-                    Container(
+                    Obx(
+                          ()=> authController.isLoading.value
+                          ?CircularProgressIndicator():Container(
                       width: 100.0,
                       child: MaterialButton(
                         height: 20.0,
                         onPressed: () {
                           if (isValid()) {
-                         postRequest();
+                         // postRequest();
+                            authController.login(emailController.text, passwordController.text);
+                            if(authController.isAuth==true){
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return Main_Screen();
+                              }));
+                            }
+                            print("error");
                           }
                         },
                         child: Text(
@@ -184,7 +197,7 @@ class _LoginState extends State<Login> {
                         // borderRadius: BorderRadius.circular(20.0),
                         color: Colors.purple[800],
                       ),
-                    ),
+                    ),),
                     SizedBox(
                       height: 20.0,
                     ),

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:guideram/Consulting%20pages/Business_and_management.dart';
 import 'package:guideram/Consulting%20pages/ExpertByType.dart';
-import 'package:guideram/Consulting%20pages/Professional.dart';
-import 'package:guideram/Consulting%20pages/Psychological.dart';
-import 'package:guideram/Consulting%20pages/family.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/controllers/expertscontroller.dart';

@@ -12,22 +12,27 @@ class ExpertController extends GetxController{
 Expert? expert;
 var expertAppointment=<Appointment>[];
 late int id;
+Expert?visitedExpert;
   ExpertController(this.id);
 
 
   Future <void>onInit() async{
     super.onInit();
-    fetchExpert(id);
+    fetchExpert(id,false);
     fetchAppointments(id);
   }
 
-fetchExpert(int id)async{
+fetchExpert(int id,bool isVisited)async{
   try{
     // isLoading(true);
       http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/${id}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
     if(response.statusCode==200){
       var result=jsonDecode(response.body);
+      if(isVisited){
+        visitedExpert=Expert.fromJson(result["data"]);
+      }else{
       expert=Expert.fromJson(result["data"]);
+      }
 
     }
     else{

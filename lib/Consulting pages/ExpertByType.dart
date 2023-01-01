@@ -7,6 +7,8 @@ import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/model/Experts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import '../expert_user_screen.dart';
+
 class ExpertsModel{
    final String name;
   ExpertsModel({
@@ -17,8 +19,11 @@ class ExpertsModel{
 
 class ExpertsByType extends StatelessWidget {
   final String type;
+
   const ExpertsByType(this.type, {super.key});
-  Widget buildExpertsitem(Experts expert) =>
+
+
+  Widget buildExpertsitem(Experts expert,BuildContext context) =>
      MaterialButton(
         child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +69,12 @@ class ExpertsByType extends StatelessWidget {
         ),
     ],
   ),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return expert_user_screen(expert.userId!);
+          }));
+
+        },
       );
 
   @override
@@ -135,7 +145,7 @@ class ExpertsByType extends StatelessWidget {
                   shrinkWrap: true,
                     physics:NeverScrollableScrollPhysics(),
                     scrollDirection:Axis.vertical,
-                    itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index)) ,
+                    itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index),context) ,
                     separatorBuilder:(context,index) => SizedBox(
                       height:10,
                     ) ,

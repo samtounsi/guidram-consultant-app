@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:guideram/Booked_appointments.dart';
-import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Main_screen.dart';
-import 'package:guideram/login.dart';
 import 'package:favorite_button/favorite_button.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
+import 'package:guideram/model/Expert.dart';
+import "package:get/get.dart";
 
 class expert_user_screen extends StatefulWidget {
-  const expert_user_screen({Key? key}) : super(key: key);
-
+  int id;
+  expert_user_screen(this.id, {super.key});
   @override
-  State<expert_user_screen> createState() => _expert_user_screenState();
+  State<expert_user_screen> createState() => _expert_user_screenState(id);
 }
 
 class _expert_user_screenState extends State<expert_user_screen> {
+  int id=0;
+  _expert_user_screenState(this.id);
   @override
   Widget build(BuildContext context) {
+    print(id);
+    ExpertController expertController=Get.put(ExpertController(id));
+    expertController.fetchExpert(id, true);
+    print(expertController.expert!.name);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -24,7 +31,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
             Icons.arrow_back,
           ),
           onPressed: () {
-//Navigation
+            //Navigation
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Main_Screen();
             }));
@@ -77,7 +84,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                       height: 15.0,
                     ),
                     Text(
-                      'Rawan Asa\'ad',
+                      '${expertController.expert!.name}',
                       style: TextStyle(
                         fontSize: 23.0,
                         color: Colors.white,
@@ -90,7 +97,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                         child: Text(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          'Test .........................................................................................................................................................................................................',
+                          '${expertController.expert!.experience}',
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.white,
@@ -135,7 +142,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('asad.rawan.1@gmail.com'),
+                              Text('${expertController.expert!.email}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -175,7 +182,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('0997152139'),
+                              Text('${expertController.expert!.phone}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -215,7 +222,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('Syria-Damascus-Mazzah86'),
+                              Text('${expertController.expert!.address}'),
                             ],
                           ),
                         ],
