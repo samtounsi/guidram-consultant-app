@@ -5,27 +5,14 @@ import 'package:guideram/Main_screen.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
 import 'package:get/get.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+
 
 
 class expert_profile extends StatelessWidget {
   const expert_profile({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    ExpertController expertController=Get.put(ExpertController());
-    //isloading
-    //loaderOverlay is an external dependency so don't think about it a lot (:
-
-
-    //for showing the loader
-
-
-    //this is the variable for knowing if it is loading data or no
-    print (expertController.isLoading);
-    //for hiding the loader
-    expertController.fetchExpert(1);
-    print(expertController.isLoading);
-    print(expertController.expert?.name);
+    ExpertController expertController=Get.put(ExpertController(1));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],

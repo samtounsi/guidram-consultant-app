@@ -24,6 +24,7 @@ class ExpertsController extends GetxController {
         http.Response response=await http.get(Uri.parse("${globals.Uri}/api/experts/${type}")!,headers: {"Authorization":"Bearer 1|odJDvU0Hbh5R3pbbUDd4MaQSWKCprfCGSXAAx5kn"});
         print(response.statusCode);
         if(response.statusCode==200){
+          experts.removeRange(0, experts.length);
           var result=jsonDecode(response.body);
           result["data"].forEach((ex)=>
               experts.add(Experts.fromJson(ex))

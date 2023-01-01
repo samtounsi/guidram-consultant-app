@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:guideram/Consulting%20pages/Business_and_management.dart';
 import 'package:guideram/Consulting%20pages/Medical.dart';
 import 'package:guideram/Consulting%20pages/Professional.dart';
 import 'package:guideram/Consulting%20pages/Psychological.dart';
 import 'package:guideram/Consulting%20pages/family.dart';
 import 'package:guideram/Expert_profile.dart';
-import 'package:guideram/controllers/expertscontroller.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
-import 'package:get/get.dart';
 import "globalvariables.dart" as globals;
 
 
@@ -15,8 +16,6 @@ class Main_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -64,6 +63,7 @@ class Main_Screen extends StatelessWidget {
           Icons.person_outline_rounded,
         ),
         onPressed: () {
+          Get.delete<ExpertController>();
           //Navigation
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) {

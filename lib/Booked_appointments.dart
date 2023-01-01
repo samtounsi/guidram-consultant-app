@@ -1,46 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
+import "package:get/get.dart";
+import 'package:guideram/model/Appointment.dart';
 
-class Booked_appointmentsModel{
-  final String name;
-  final String time;
-  Booked_appointmentsModel({
-    required this.name,
-    required this.time,
-  });
-}
 
 class Booked_appointments extends StatelessWidget {
 
-  List<Booked_appointmentsModel> Bookapp = [
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Monday  05:00',
-    ),
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Sunday  09:00',
-    ),
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Friday  03:00',
-    ),
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Saturday  05:00',
-    ),
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Tuesday  06:00',
-    ),
-    Booked_appointmentsModel(
-      name: 'Rawan',
-      time:'Sunday  05:00',
-    ),
-  ];
+  ExpertController expertController=Get.put(ExpertController(1));
 
   @override
   Widget build(BuildContext context) {
+
+     List<Appointment> Bookapp=expertController.expertAppointment ;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -59,7 +31,9 @@ class Booked_appointments extends StatelessWidget {
                 fontSize: 17.0,),
             ),
       ),
-      body:Padding(
+      body: Obx(
+    ()=> expertController.isLoading.value
+    ?CircularProgressIndicator():Padding(
         padding: const EdgeInsets.only(
           left:20,
           right:20,
@@ -78,10 +52,12 @@ class Booked_appointments extends StatelessWidget {
               ),
         ),
       ),
+    )
+      ,
     );
   }
 
-  Widget buildExpertsitem(Booked_appointmentsModel Bookapp) =>
+  Widget buildExpertsitem(Appointment Bookapp) =>
       Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -104,7 +80,7 @@ class Booked_appointments extends StatelessWidget {
                             fontSize: 18.0,
                             fontWeight: FontWeight.w500,
                           ),
-                          '${Bookapp.name}',
+                          "${expertController.expert?.name}",
                         ),
                         SizedBox(
                           width: 50,
@@ -115,7 +91,7 @@ class Booked_appointments extends StatelessWidget {
                             fontSize: 14.0,
                             fontWeight: FontWeight.w400,
                           ),
-                          '${Bookapp.time}',
+                          '${getDay(Bookapp.day!)+"  "+"${Bookapp.from}:00"}',
                         ),
                       ],
                     ),
@@ -137,4 +113,17 @@ class Booked_appointments extends StatelessWidget {
             ),
           ],
         );
+  Map<int, String> Days = {
+    1:"Saturday",
+    2:"Sunday",
+    3:"Monday",
+    4:"Tuesday",
+    5:"Wednesday",
+    6:"Thursday",
+    7:"Friday"
+  };
+  getDay(int day) {
+    return Days[day];
+  }
 }
+
