@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:guideram/Consulting%20pages/Business_and_management.dart';
-import 'package:guideram/Consulting%20pages/Medical.dart';
+import 'package:guideram/Consulting%20pages/ExpertByType.dart';
 import 'package:guideram/Consulting%20pages/Professional.dart';
 import 'package:guideram/Consulting%20pages/Psychological.dart';
 import 'package:guideram/Consulting%20pages/family.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
+import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/login.dart';
 import "globalvariables.dart" as globals;
 
@@ -120,10 +121,10 @@ class Main_Screen extends StatelessWidget {
                               width: 150.0,
                             ),
                             onPressed: () {
-                              //Navigation
+                              Get.delete<ExpertsController>();                  //Navigation
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return Medical_Con();
+                                return const ExpertsByType("medical");
                               }));
 
                             },
@@ -159,10 +160,11 @@ class Main_Screen extends StatelessWidget {
                               width: 150.0,
                             ),
                             onPressed: () {
+                              Get.delete<ExpertsController>();
                               //Navigation
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return Professional_Con();
+                                return const ExpertsByType("Professional");
                               }));
                             },
                           ),
@@ -201,10 +203,11 @@ class Main_Screen extends StatelessWidget {
                               width: 150.0,
                             ),
                             onPressed: () {
+                              Get.delete<ExpertsController>();
                               //Navigation
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return Psychological_Con();
+                                return const ExpertsByType("Psychological");
                               }));
                             },
                           ),
@@ -239,10 +242,12 @@ class Main_Screen extends StatelessWidget {
                               width: 150.0,
                             ),
                             onPressed: () {
+                              Get.delete<ExpertsController>();
+
                               //Navigation
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return family_Con();
+                                return const ExpertsByType("Familial");
                               }));
                             },
                           ),
@@ -281,10 +286,11 @@ class Main_Screen extends StatelessWidget {
                             width: 150.0,
                           ),
                           onPressed: () {
+                            Get.delete<ExpertsController>();
                             //Navigation
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return Business_Con();
+                              return const ExpertsByType("Business");
                             }));
                           },
                         ),

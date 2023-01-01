@@ -21,7 +21,7 @@ class ExpertsController extends GetxController {
       try{
 
         isLoading(true);
-        http.Response response=await http.get(Uri.parse("${globals.Uri}/api/experts/${type}")!,headers: {"Authorization":"Bearer 1|odJDvU0Hbh5R3pbbUDd4MaQSWKCprfCGSXAAx5kn"});
+        http.Response response=await http.get(Uri.parse("${globals.Uri}/api/experts/${type}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
         print(response.statusCode);
         if(response.statusCode==200){
           experts.removeRange(0, experts.length);

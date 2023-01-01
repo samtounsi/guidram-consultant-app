@@ -24,7 +24,7 @@ late int id;
 fetchExpert(int id)async{
   try{
     // isLoading(true);
-      http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/${id}")!,headers: {"Authorization":"Bearer 1|odJDvU0Hbh5R3pbbUDd4MaQSWKCprfCGSXAAx5kn"});
+      http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/${id}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
     if(response.statusCode==200){
       var result=jsonDecode(response.body);
       expert=Expert.fromJson(result["data"]);
@@ -46,7 +46,7 @@ fetchExpert(int id)async{
     try{
       print("fetching");
       isLoading(true);
-      http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/appointments/${id}")!,headers: {"Authorization":"Bearer 1|odJDvU0Hbh5R3pbbUDd4MaQSWKCprfCGSXAAx5kn"});
+      http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/appointments/${id}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
       print(response.statusCode);
       if(response.statusCode==200){
         expertAppointment.removeRange(0,expertAppointment.length);

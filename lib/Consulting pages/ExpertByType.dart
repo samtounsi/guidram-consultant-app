@@ -15,7 +15,9 @@ class ExpertsModel{
 }
 
 
-class Medical_Con extends StatelessWidget {
+class ExpertsByType extends StatelessWidget {
+  final String type;
+  const ExpertsByType(this.type, {super.key});
   Widget buildExpertsitem(Experts expert) =>
      MaterialButton(
         child: Column(
@@ -67,8 +69,7 @@ class Medical_Con extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.delete<ExpertsController>();
-    ExpertsController expertController=Get.put(ExpertsController("medical"));
+    ExpertsController expertController=Get.put(ExpertsController(type));
     List<Experts> experts =expertController.experts;
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +93,7 @@ class Medical_Con extends StatelessWidget {
               width: 10.0,
             ),
             Text(
-              'Medical Consulting',
+              '${type} Consulting',
               style: TextStyle(color: Colors.white,
               fontSize: 15.0,),
             ),

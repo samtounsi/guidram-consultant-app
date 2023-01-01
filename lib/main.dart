@@ -8,7 +8,7 @@ import 'package:guideram/Main_screen.dart';
 import 'package:guideram/expert_user_screen.dart';
 import 'package:guideram/signup.dart';
 /*import 'package:guideram/Consulting%20pages/Business_and_management.dart';
-import 'package:guideram/Consulting%20pages/Medical.dart';
+import 'package:guideram/Consulting%20pages/ExpertByType.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Expert_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
