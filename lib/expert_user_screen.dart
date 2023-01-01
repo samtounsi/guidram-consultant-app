@@ -13,12 +13,47 @@ class expert_user_screen extends StatefulWidget {
 }
 
 class _expert_user_screenState extends State<expert_user_screen> {
-  int id=0;
+  int id = 0;
+  bool is_fav = true;
   _expert_user_screenState(this.id);
+
+  void _show1(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.white70,
+        content: const Text('This expert has been added to your favorites list',
+            style: TextStyle(color: Colors.black87)),
+        action: SnackBarAction(
+          label: 'ok',
+          textColor: Colors.purple[800],
+          onPressed: scaffold.hideCurrentSnackBar,
+        ),
+      ),
+    );
+  }
+
+  void _show2(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.white70,
+        content: const Text(
+            'This expert has been removed from your favorites list',
+            style: TextStyle(color: Colors.black87)),
+        action: SnackBarAction(
+          label: 'ok',
+          textColor: Colors.purple[800],
+          onPressed: scaffold.hideCurrentSnackBar,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print(id);
-    ExpertController expertController=Get.put(ExpertController(id));
+    ExpertController expertController = Get.put(ExpertController(id));
     expertController.fetchExpert(id, true);
     print(expertController.expert!.name);
 
@@ -38,16 +73,34 @@ class _expert_user_screenState extends State<expert_user_screen> {
           },
         ),
         actions: [
-          FavoriteButton(
-            isFavorite: false,
-            iconColor: Colors.purple[300],
-            iconSize: 50,
-            valueChanged: (_isFavorite) {
-              print('Is Favorite : $_isFavorite');
-            },
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 40,
+              ),
+              IconButton(
+                  icon: Icon(
+                    is_fav ? Icons.favorite : Icons.favorite_border_outlined,
+                    color: Colors.purple[800],
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      is_fav = !is_fav;
+                      if (is_fav) {
+                        _show1(context);
+                      }
+                      if (!is_fav) {
+                        _show2(context);
+                      }
+                    });
+                  }),
+            ],
           ),
           SizedBox(
-            width: 15.0,
+            width: 5.0,
           ),
         ],
       ),
@@ -239,18 +292,18 @@ class _expert_user_screenState extends State<expert_user_screen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         color: Colors.purple[800],
-
                       ),
                       child: MaterialButton(
-                          child: const Text('Appointment Booking',
+                          child: const Text(
+                            'Appointment Booking',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize:15.0,
+                              fontSize: 15.0,
                             ),
                           ),
                           onPressed: () {
-                          /*  Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                            /*  Navigator.of(context).push(MaterialPageRoute(builder:(context){
                               return ();
                             }));*/
                           }),

@@ -4,6 +4,7 @@ import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Expert_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/Favourite.dart';
 import 'package:guideram/Main_screen.dart';
 import 'package:guideram/expert_user_screen.dart';
 import 'package:guideram/signup.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner:false,
-        home:expert_user_screen(1),
+        home:Favourite(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],
