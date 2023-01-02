@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class Fav_Experts{
   final String name;
+  final String rate;
   final String price;
   Fav_Experts({
     required this.name,
+    required this.rate,
     required this.price,
   });
 }
@@ -16,7 +18,7 @@ class Favourite extends StatefulWidget {
 
 class _FavouriteState extends State<Favourite> {
   List<Fav_Experts> fav =[
-    Fav_Experts(name:'Rawan', price:'90 s.p')
+    Fav_Experts(name:'Rawan', price:'90 s.p',rate:'4')
   ];
   bool is_fav = true;
   @override
@@ -123,6 +125,17 @@ class _FavouriteState extends State<Favourite> {
                             fontWeight: FontWeight.w400,
                           ),
                           '${fav.name}',
+                        ),
+                        SizedBox(
+                          height:7.0,
+                        ),
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w300,
+                          ),
+                          'Rating: ${fav.rate}',
                         ),
                         SizedBox(
                           height:7.0,

@@ -4,6 +4,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/model/Expert.dart';
 import "package:get/get.dart";
+import 'package:rating_dialog/rating_dialog.dart';
 
 class expert_user_screen extends StatefulWidget {
   int id;
@@ -16,6 +17,30 @@ class _expert_user_screenState extends State<expert_user_screen> {
   int id = 0;
   bool is_fav = true;
   _expert_user_screenState(this.id);
+
+  final _dialog = RatingDialog(
+    enableComment: false,
+    starColor: Colors.purple.shade800,
+    starSize: 30,
+    initialRating: 1.0,
+    title: const Text(
+      'Rating',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    message: const Text(
+      'Tap a star to set your rating',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 15),
+    ),
+    submitButtonText: 'Ok',
+    onSubmitted: (response) {
+      print('rating: ${response.rating}');
+    },
+  );
 
   void _show1(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -73,6 +98,18 @@ class _expert_user_screenState extends State<expert_user_screen> {
           },
         ),
         actions: [
+          IconButton(
+              icon: Icon(
+                Icons.star,
+                size: 35,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  // barrierDismissible: true, // set to false if you want to force a rating
+                  builder: (context) => _dialog,
+                );
+              }),
           Stack(
             alignment: Alignment.center,
             children: [
