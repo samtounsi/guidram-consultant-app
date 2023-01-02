@@ -24,9 +24,10 @@ Expert?visitedExpert;
 
 fetchExpert(int id,bool isVisited)async{
   try{
-    // isLoading(true);
       http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/${id}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
-    if(response.statusCode==200){
+      print(response.statusCode);
+
+      if(response.statusCode==200){
       var result=jsonDecode(response.body);
       if(isVisited){
         visitedExpert=Expert.fromJson(result["data"]);
@@ -50,11 +51,8 @@ fetchExpert(int id,bool isVisited)async{
   fetchAppointments(int id)async{
     try{
       print("fetching");
-      isLoading(true);
       http.Response response=await http.get(Uri.parse("${globals.Uri}/api/expert/appointments/${id}")!,headers: {"Authorization":"Bearer ${globals.tokken}"});
-      print(response.statusCode);
       if(response.statusCode==200){
-        expertAppointment.removeRange(0,expertAppointment.length);
         var result=jsonDecode(response.body);
         result["data"].forEach((ex) {
           expertAppointment.add(Appointment.fromJson(ex));

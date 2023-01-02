@@ -9,78 +9,75 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import '../expert_user_screen.dart';
 
-class ExpertsModel{
-   final String name;
-  ExpertsModel({
-   required this.name,
-});
-}
+class ExpertsModel {
+  final String name;
 
+  ExpertsModel({
+    required this.name,
+  });
+}
 
 class ExpertsByType extends StatelessWidget {
   final String type;
 
   const ExpertsByType(this.type, {super.key});
 
-
-  Widget buildExpertsitem(Experts expert,BuildContext context) =>
-     MaterialButton(
+  Widget buildExpertsitem(Experts expert, BuildContext context) =>
+      MaterialButton(
         child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 35.0,
-                    backgroundImage: AssetImage('assets/images/profile.png'),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+            Column(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: AssetImage('assets/images/profile.png'),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          '${expert.name}',
                         ),
-                        '${expert.name}',
-                      ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  '_________________________________________________',
+                  style: TextStyle(
+                    color: Colors.purple[800],
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              '_________________________________________________',
-              style: TextStyle(
-                color: Colors.purple[800],
-                fontWeight: FontWeight.bold,
-              ),
+                ),
+              ],
             ),
           ],
         ),
-    ],
-  ),
-        onPressed: (){
+        onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return expert_user_screen(expert.userId!);
           }));
-
         },
       );
 
   @override
   Widget build(BuildContext context) {
-    ExpertsController expertController=Get.put(ExpertsController(type));
-    List<Experts> experts =expertController.experts;
+    ExpertsController expertController = Get.put(ExpertsController(type));
+    List<Experts> experts = expertController.experts;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -104,58 +101,62 @@ class ExpertsByType extends StatelessWidget {
             ),
             Text(
               '${type} Consulting',
-              style: TextStyle(color: Colors.white,
-              fontSize: 15.0,),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.0,
+              ),
             ),
           ],
         ),
       ),
-      body:Obx(
-          ()=> expertController.isLoading.value
-        ?CircularProgressIndicator():
-          Padding(
-          padding: const EdgeInsets.all(8.0),
-          child:SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(7.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(
-                      1.0,
-                    ),
-                    color: Colors.grey[300],
-                  ),
-                  child: Row(
+      body: Obx(
+        () => expertController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Icon(
-                        Icons.search,
+                      Container(
+                        padding: EdgeInsets.all(7.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(
+                            1.0,
+                          ),
+                          color: Colors.grey[300],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.search,
+                            ),
+                            SizedBox(
+                              width: 15.0,
+                            ),
+                            Text('Search'),
+                          ],
+                        ),
                       ),
                       SizedBox(
-                        width: 15.0,
+                        height: 7.0,
                       ),
-                      Text('Search'),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) =>
+                            buildExpertsitem(experts.elementAt(index), context),
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 10,
+                        ),
+                        itemCount: experts.length,
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 7.0,
-                ),
-                   ListView.separated(
-                  shrinkWrap: true,
-                    physics:NeverScrollableScrollPhysics(),
-                    scrollDirection:Axis.vertical,
-                    itemBuilder:(context,index) => buildExpertsitem(experts.elementAt(index),context) ,
-                    separatorBuilder:(context,index) => SizedBox(
-                      height:10,
-                    ) ,
-                    itemCount: experts.length,
-                  ),
-
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

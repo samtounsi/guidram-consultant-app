@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import 'package:guideram/controllers/authController.dart';
 import 'package:image_picker/image_picker.dart';
 import "globalvariables.dart" as globals;
 import "package:http/http.dart" as http;
 import 'dart:convert';
-
+import "package:get/get.dart";
 class Expert_Screen extends StatefulWidget {
   @override
   State<Expert_Screen> createState() => _Expert_ScreenState();
@@ -57,6 +57,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
       print(e);
     }
   }
+  AuthController authController=Get.put(AuthController());
 
   isValid() {
     return FormKey.currentState!.validate();
@@ -422,13 +423,20 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                   SizedBox(
                     height: 25.0,
                   ),
-                  Container(
+
+                  Obx(
+                        ()=> authController.isLoading.value ?
+                    CircularProgressIndicator():Container(
                     width: 100.0,
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
                         if (isValid()) {
-                          postRequest();
+                          // postRequest();
+                          authController.CreateExpert(NameController.text,phoneController.text,emailController.text, passwordController.text,ExperienceController.text,AddressController.text,context);
+                          if(authController.isAuth==true){
+                          }
+                          print("error");
                         }
                       },
                       child: Text(
@@ -444,7 +452,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       // borderRadius: BorderRadius.circular(20.0),
                       color: Colors.purple[800],
                     ),
-                  ),
+                  ),),
                 ],
               ),
             ),

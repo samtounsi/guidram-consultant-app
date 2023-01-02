@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Error_Screen.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/choose.dart';
+import 'package:guideram/controllers/authController.dart';
 import 'package:image_picker/image_picker.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import "globalvariables.dart" as globals;
+import "package:get/get.dart";
 
 class User_Screen extends StatefulWidget {
   @override
@@ -22,29 +24,8 @@ class _User_ScreenState extends State<User_Screen> {
   var FormKey = GlobalKey<FormState>();
   bool _obscureText = true;
   var uri = Uri.parse("${globals.Uri}/api/user/register");
-  postRequest() async {
-    try {
-      var response = await http.post(uri, body: {
-        'name': NameController.text,
-        'phone': phoneController.text,
-        "email": emailController.text,
-        "password": passwordController.text,
-      });
 
-      var responseData = json.decode(response.body);
-      String token = responseData['token'];
-      if(!token.isEmpty) {
-        globals.tokken = token;
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return Main_Screen();
-        }));
-      } else {
-        print("err");
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  AuthController authController=Get.put(AuthController());
 
   isValid() {
     return FormKey.currentState!.validate();
@@ -112,11 +93,6 @@ class _User_ScreenState extends State<User_Screen> {
 
   @override
   Widget build(BuildContext context) {
-   /* if(globals.tokken!=""){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return Main_Screen();
-      }));
-    }*/
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -312,14 +288,18 @@ class _User_ScreenState extends State<User_Screen> {
                   SizedBox(
                     height: 40.0,
                   ),
-                  Container(
+                  Obx(
+                        ()=> authController.isLoading.value
+                        ?
+                    CircularProgressIndicator():Container(
                     width: 100.0,
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
                         if (isValid()) {
+                          authController.CreateUser(NameController.text, phoneController.text, emailController.text, passwordController.text,context);
 
-                          postRequest();
+                          // postRequest();
                         }
                       },
                       child: Text(
@@ -335,7 +315,7 @@ class _User_ScreenState extends State<User_Screen> {
                       // borderRadius: BorderRadius.circular(20.0),
                       color: Colors.purple[800],
                     ),
-                  ),
+                  ),),
                 ],
               ),
             ),

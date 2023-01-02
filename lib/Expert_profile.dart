@@ -53,7 +53,9 @@ class expert_profile extends StatelessWidget {
       body: SingleChildScrollView(
         child:  Obx(
     ()=> expertController.isLoading.value
-    ?CircularProgressIndicator():
+    ?Center(
+      child: CircularProgressIndicator(),
+    ):
     Column(
           children: [
             Container(

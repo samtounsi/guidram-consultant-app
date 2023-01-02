@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:guideram/Consulting%20pages/ExpertByType.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/controllers/authController.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/login.dart';
@@ -13,6 +14,8 @@ class Main_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController=Get.put(AuthController());
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -46,6 +49,7 @@ class Main_Screen extends StatelessWidget {
             ),
             onPressed: () {
               globals.tokken="";
+              authController.isAuth(false);
               //Navigation
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return Login();

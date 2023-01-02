@@ -50,6 +50,12 @@ class _LoginState extends State<Login> {
   }
 
   Widget build(BuildContext context) {
+    if(authController.isAuth==true){
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) {
+        return Main_Screen();
+      }));
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -167,20 +173,15 @@ class _LoginState extends State<Login> {
                     ),
                     Obx(
                           ()=> authController.isLoading.value
-                          ?CircularProgressIndicator():Container(
+                          ?
+                          CircularProgressIndicator():Container(
                       width: 100.0,
                       child: MaterialButton(
                         height: 20.0,
                         onPressed: () {
                           if (isValid()) {
                          // postRequest();
-                            authController.login(emailController.text, passwordController.text);
-                            if(authController.isAuth==true){
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return Main_Screen();
-                              }));
-                            }
+                            authController.login(emailController.text, passwordController.text,context);
                             print("error");
                           }
                         },

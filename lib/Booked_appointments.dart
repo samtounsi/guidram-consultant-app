@@ -33,7 +33,9 @@ class Booked_appointments extends StatelessWidget {
       ),
       body: Obx(
     ()=> expertController.isLoading.value
-    ?CircularProgressIndicator():Padding(
+    ?Center(
+      child: CircularProgressIndicator(),
+    ):Padding(
         padding: const EdgeInsets.only(
           left:20,
           right:20,

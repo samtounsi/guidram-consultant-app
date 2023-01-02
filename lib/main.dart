@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner:false,
-        home:Favourite(),
+        home:Main_Screen(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],
