@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:inspection/inspection.dart';
+import "package:get/get.dart";
 
 class Counseling_Settings extends StatefulWidget {
   const Counseling_Settings({Key? key}) : super(key: key);
-
 
   @override
   State<Counseling_Settings> createState() => _Counseling_SettingsState();
@@ -22,6 +23,8 @@ class Counseling {
   });
 }
 
+ExpertController expertController = Get.put(ExpertController(1));
+
 class _Counseling_SettingsState extends State<Counseling_Settings> {
   var PriceController = TextEditingController();
   var startController = TextEditingController();
@@ -30,6 +33,10 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
   var Form_Key = GlobalKey<FormState>();
   final multiSelectKey = GlobalKey<FormFieldState>();
   var Select_day = "Sunday";
+
+  isValid() {
+    return FormKey.currentState!.validate();
+  }
 
   static List<Counseling> con = [
     Counseling(id: 1, name: "Medical"),
@@ -40,23 +47,22 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
   ];
   String? selectedValue;
 
-  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("1 hour"),value:'1'),
-      DropdownMenuItem(child: Text("2 hours"),value:'2'),
-      DropdownMenuItem(child: Text("3 hours"),value:'3'),
+      DropdownMenuItem(child: Text("1 hour"), value: '1'),
+      DropdownMenuItem(child: Text("2 hours"), value: '2'),
+      DropdownMenuItem(child: Text("3 hours"), value: '3'),
     ];
     return menuItems;
   }
 
-  final _items = con
-      .map((Con) => MultiSelectItem<Counseling>(Con, Con.name))
-      .toList();
- List<Counseling> selectedCounseling = [];
+  final _items =
+      con.map((Con) => MultiSelectItem<Counseling>(Con, Con.name)).toList();
+  List<Counseling> selectedCounseling = [];
 
   @override
   void initState() {
-  selectedCounseling = [];
+    selectedCounseling = [];
     super.initState();
   }
 
@@ -85,8 +91,8 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
       body: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          right:25.0 ,
-          left:25.0,
+          right: 25.0,
+          left: 25.0,
         ),
         child: Expanded(
           child: SingleChildScrollView(
@@ -103,9 +109,9 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     onFieldSubmitted: (String value) {
                       print(value);
                     },
-                    validator: (input) => inspection(input,'required|float|between:1,10000',
-                    message: 'select a number between 1 and 100000'
-                    ),
+                    validator: (input) => inspection(
+                        input, 'required|float|between:1,10000',
+                        message: 'select a number between 1 and 100000'),
                     /*validator: (value) {
                       double? num = double.tryParse(value.toString());
                       if(num == null)
@@ -123,7 +129,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       return null;
                     },*/
                     decoration: InputDecoration(
-                      hintText:  'Price of session',
+                      hintText: 'Price of session',
                       border: OutlineInputBorder(
                         gapPadding: 5.0,
                       ),
@@ -134,22 +140,24 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
-                    height:35.0,
+                    height: 35.0,
                   ),
                   DropdownButtonFormField(
                       decoration: InputDecoration(
-                        labelText: 'Select the duration of the session',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple.shade800, width: 2),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple.shade800, width: 2),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white
-                      ),
-                      validator: (value) => value == null ? "Select a time" : null,
-                     // dropdownColor:,
+                          labelText: 'Select the duration of the session',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.purple.shade800, width: 2),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.purple.shade800, width: 2),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white),
+                      validator: (value) =>
+                          value == null ? "Select a time" : null,
+                      // dropdownColor:,
                       value: selectedValue,
                       onChanged: (String? newValue) {
                         setState(() {
@@ -158,30 +166,30 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       },
                       items: dropdownItems),
                   const SizedBox(
-                    height:35.0,
+                    height: 35.0,
                   ),
                   MultiSelectDialogField(
                     onConfirm: (val) {
-                      selectedCounseling= val;
+                      selectedCounseling = val;
                     },
                     buttonText: Text(
                       'Select the type of consultation',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16,
-                    ),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 16,
+                      ),
                     ),
                     selectedColor: Colors.purple[900],
-                   buttonIcon:Icon(
-                       Icons.arrow_drop_down,
-                     color:Colors.purple[800] ,
-                   ) ,
+                    buttonIcon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.purple[800],
+                    ),
                     items: _items,
                     initialValue:
-                    selectedCounseling, // setting the value of this in initState() to pre-select values.
+                        selectedCounseling, // setting the value of this in initState() to pre-select values.
                   ),
                   const SizedBox(
-                    height:30.0,
+                    height: 30.0,
                   ),
                   /*Container(
                     width: 100.0,
@@ -208,43 +216,52 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),*/
                   const SizedBox(
-                    height:20.0,
+                    height: 20.0,
                   ),
-                  Container(
-                    width: 100.0,
-                    child: MaterialButton(
-                      height: 20.0,
-                      onPressed: () {
-                        FormKey.currentState!.validate();
-                      },
-                      child: Text(
-                        'submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          //fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.purple[800],
-                    ),
+                  Obx(
+                    () => expertController.isLoading.value
+                        ? CircularProgressIndicator()
+                        : Container(
+                            width: 100.0,
+                            child: MaterialButton(
+                              height: 20.0,
+                              onPressed: () {
+                                if (isValid()) {
+                                  List<dynamic> cons = [];
+                                  for (int i = 0; i < selectedCounseling.length; i++) {
+                                    cons.add(selectedCounseling[i].id.toString());
+                                  }
+                                  expertController.postSettings(PriceController.text,selectedValue!,cons);
+                                }
+                              },
+                              child: Text(
+                                'submit',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  //fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.purple[800],
+                            ),
+                          ),
                   ),
                   const SizedBox(
-                    height:20.0,
+                    height: 20.0,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal:10),
+                    margin: EdgeInsets.symmetric(horizontal: 10),
                     child: DropdownButton(
                       isExpanded: true,
                       style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 15
-                      ),
-                      underline: Divider(color: Colors.purple[800],
-                          height: 2.0),
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 15),
+                      underline:
+                          Divider(color: Colors.purple[800], height: 2.0),
                       iconEnabledColor: Colors.purple[800],
                       items: [
                         "Sunday",
@@ -256,20 +273,20 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                         "Saturday",
                       ]
                           .map((e) => DropdownMenuItem(
-                        child: Text("$e"),
-                        value: e,
-                      ))
+                                child: Text("$e"),
+                                value: e,
+                              ))
                           .toList(),
                       onChanged: (value) {
                         setState(() {
-                          Select_day = value! ;
+                          Select_day = value!;
                         });
                       },
                       value: Select_day,
                     ),
                   ),
                   const SizedBox(
-                    height:30.0,
+                    height: 30.0,
                   ),
                   Form(
                     key: Form_Key,
@@ -283,15 +300,15 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                             maxLines: 1,
                             controller: startController,
                             keyboardType: TextInputType.number,
-                            inputFormatters:<TextInputFormatter>[
+                            inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             onFieldSubmitted: (String value) {
                               print(value);
                             },
-                            validator: (input) => inspection(input,'required|numeric|between:0,23',
-                                message: 'number  0 -> 23'
-                            ),
+                            validator: (input) => inspection(
+                                input, 'required|numeric|between:0,23',
+                                message: 'number  0 -> 23'),
                             decoration: InputDecoration(
                               labelText: 'start',
                               border: OutlineInputBorder(
@@ -312,15 +329,15 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                             maxLines: 1,
                             controller: endController,
                             keyboardType: TextInputType.number,
-                            inputFormatters:<TextInputFormatter>[
+                            inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             onFieldSubmitted: (String value) {
                               print(value);
                             },
-                            validator: (input) => inspection(input,'required|numeric|between:1,24',
-                                message: 'number  1 -> 24'
-                            ),
+                            validator: (input) => inspection(
+                                input, 'required|numeric|between:1,24',
+                                message: 'number  1 -> 24'),
                             decoration: InputDecoration(
                               labelText: 'end',
                               border: OutlineInputBorder(
@@ -340,18 +357,19 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
-                    height:30.0,
+                    height: 30.0,
                   ),
                   Container(
                     width: 100.0,
-                    child:MaterialButton(
+                    child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
                         if (Form_Key.currentState!.validate()) {
-                          if(int.parse(startController.text)<int.parse(endController.text)){
+                          if (int.parse(startController.text) <
+                              int.parse(endController.text)) {
                             print(startController.text);
                             print(endController.text);
-                          }else
+                          } else
                             _showToast(context);
                         }
                       },
@@ -365,24 +383,26 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                     // borderRadius: BorderRadius.circular(20.0),
+                      // borderRadius: BorderRadius.circular(20.0),
                       color: Colors.purple[800],
                     ),
                   ),
-              ],
+                ],
+              ),
             ),
           ),
-    ),
-      ),
+        ),
       ),
     );
   }
+
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('The start time must be smaller than the end time'),
-        action: SnackBarAction(label: 'ok', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'ok', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
