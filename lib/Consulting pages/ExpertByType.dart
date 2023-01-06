@@ -117,32 +117,7 @@ class ExpertsByType extends StatelessWidget {
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(7.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(
-                            1.0,
-                          ),
-                          color: Colors.grey[300],
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.search,
-                            ),
-                            SizedBox(
-                              width: 15.0,
-                            ),
-                            Text('Search'),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7.0,
-                      ),
-                      ListView.separated(
+                  child: ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
@@ -153,8 +128,6 @@ class ExpertsByType extends StatelessWidget {
                         ),
                         itemCount: experts.length,
                       ),
-                    ],
-                  ),
                 ),
               ),
       ),
