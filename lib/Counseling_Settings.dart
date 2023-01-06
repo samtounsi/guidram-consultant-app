@@ -13,7 +13,7 @@ class Counseling_Settings extends StatefulWidget {
   State<Counseling_Settings> createState() => _Counseling_SettingsState();
 }
 
-class Work_Time {
+/*class Work_Time {
   final String day;
   final String from;
   final String to;
@@ -22,7 +22,7 @@ class Work_Time {
     required this.from,
     required this.to,
   });
-}
+}*/
 
 class Counseling {
   final int id;
@@ -71,7 +71,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
       con.map((Con) => MultiSelectItem<Counseling>(Con, Con.name)).toList();
   List<Counseling> selectedCounseling = [];
 
-  List<Work_Time> wt = [
+  /*List<Work_Time> wt = [
     Work_Time(day: 'Sun', from: '9', to: '12'),
     Work_Time(day: 'Mon', from: '9', to: '12'),
     Work_Time(day: 'Tue', from: '9', to: '12'),
@@ -79,7 +79,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
     Work_Time(day: 'Thu', from: '9', to: '12'),
     Work_Time(day: 'Fri', from: '9', to: '12'),
     Work_Time(day: 'Sat', from: '9', to: '12'),
-  ];
+  ];*/
 
   @override
   void initState() {
@@ -595,7 +595,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
     );
   }
 
-  Widget build_worktime_item(Work_Time wt, BuildContext context) => Center(
+  /*Widget build_worktime_item(Work_Time wt, BuildContext context) => Center(
         child: Row(
           children: [
             const SizedBox(
@@ -633,7 +633,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
             ),
           ],
         ),
-      );
+      );*/
 
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
