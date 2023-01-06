@@ -24,7 +24,7 @@ class Expert {
   late final String address;
   late final int rate;
   late final int rateCount;
-  late final int? cost;
+  late final dynamic cost;
   late final int? duration;
   late final int userId;
   late final int isExpert;

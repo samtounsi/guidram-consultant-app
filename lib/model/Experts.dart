@@ -11,7 +11,7 @@ class Experts {
   String? address;
   int? rate;
   int? rateCount;
-  int? cost;
+  double? cost;
   int? duration;
 
   Experts(
