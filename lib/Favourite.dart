@@ -57,30 +57,9 @@ class _FavouriteState extends State<Favourite> {
           child:SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.all(7.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(
-                      1.0,
-                    ),
-                    color: Colors.grey[200],
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                      ),
-                      SizedBox(
-                        width: 15.0,
-                      ),
-                      Text('Search'),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 10.0,
                 ),
-
                 ListView.separated(
                   shrinkWrap: true,
                   physics:NeverScrollableScrollPhysics(),
