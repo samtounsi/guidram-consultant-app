@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Appointment_Booking.dart';
 import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Error_Screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner:false,
-        home:Main_Screen(),
+        home:Appointment_Booking(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],
