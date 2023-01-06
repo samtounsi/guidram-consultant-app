@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner:false,
-        home:Counseling_Settings(),
+        home:expert_profile(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],

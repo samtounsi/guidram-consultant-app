@@ -6,13 +6,11 @@ import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
 import 'package:get/get.dart';
 
-
-
 class expert_profile extends StatelessWidget {
   const expert_profile({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    ExpertController expertController=Get.put(ExpertController(1));
+    ExpertController expertController = Get.put(ExpertController(1));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -51,289 +49,377 @@ class expert_profile extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child:  Obx(
-    ()=> expertController.isLoading.value
-    ?Center(
-      child: CircularProgressIndicator(),
-    ):
-    Column(
-          children: [
-            Container(
-              height: 300,
-              width: 500,
-              decoration: BoxDecoration(
-                color: Colors.purple[800],
-                borderRadius: BorderRadiusDirectional.only(
-                  bottomEnd: Radius.circular(30),
-                  bottomStart: Radius.circular(30),
-                ),
-              ),
-              //clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Center(
-                child: Column(
+        child: Obx(
+          () => expertController.isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
                   children: [
+                    Container(
+                      height: 300,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        color: Colors.purple[800],
+                        borderRadius: BorderRadiusDirectional.only(
+                          bottomEnd: Radius.circular(30),
+                          bottomStart: Radius.circular(30),
+                        ),
+                      ),
+                      //clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color(0xffE6E6E6),
+                                border:
+                                    Border.all(color: const Color(0xff707070)),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Text(
+                              '${expertController.expert?.name}',
+                              style: TextStyle(
+                                fontSize: 23.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.all(30.0),
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  '${expertController.expert?.experience}',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color(0xffE6E6E6),
-                        border: Border.all(color: const Color(0xff707070)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Text(
-                      '${expertController.expert?.name}',
-                      style: TextStyle(
-                        fontSize: 23.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Text(
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          '${expertController.expert?.experience}',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.star_border_sharp,
+                                    size: 25,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 7.0,
+                                      ),
+                                      Text(
+                                        'Rating',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text('4'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.email_outlined,
+                                  ),
+                                  SizedBox(
+                                    width: 7.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Email',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text('${expertController.expert?.email}'),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.phone_android,
+                                  ),
+                                  SizedBox(
+                                    width: 7.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Phone Number',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text('${expertController.expert?.phone}'),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.maps_home_work_outlined,
+                                  ),
+                                  SizedBox(
+                                    width: 7.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Address',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(
+                                          '${expertController.expert?.address}'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.contact_support_outlined,
+                                  ),
+                                  SizedBox(
+                                    width: 7.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Consultation type',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(maxLines: 2, 'Medical Consultation'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.credit_card,
+                                  ),
+                                  SizedBox(
+                                    width: 8.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Wallet',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(
+                                          '${expertController.expert?.wallet}'),
+                                      SizedBox(
+                                        height: 25.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                width: 3.0,
+                              ),
+                              Container(
+                                width: 140,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: Colors.purple[800],
+                                ),
+                                child: MaterialButton(
+                                    child: const Text(
+                                      'Counseling settings',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Counseling_Settings();
+                                      }));
+                                    }),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Container(
+                                width: 140,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: Colors.purple[800],
+                                ),
+                                child: MaterialButton(
+                                    child: Text(
+                                      'Booked appointments',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10.0,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Booked_appointments();
+                                      }));
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            color: Colors.black45,
-                            Icons.email_outlined,
-                          ),
-                          SizedBox(
-                            width: 7.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text(
-                                'Email',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Text('${expertController.expert?.email}'),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.purple[800],
-                        height: 40,
-                        indent: 10,
-                        endIndent: 20,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            color: Colors.black45,
-                            Icons.phone_android,
-                          ),
-                          SizedBox(
-                            width: 7.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text(
-                                'Phone Number',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Text('${expertController.expert?.phone}'),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.purple[800],
-                        height: 40,
-                        indent: 10,
-                        endIndent: 20,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            color: Colors.black45,
-                            Icons.maps_home_work_outlined,
-                          ),
-                          SizedBox(
-                            width: 7.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text(
-                                'Address',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Text('${expertController.expert?.address}'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.purple[800],
-                        height: 40,
-                        indent: 10,
-                        endIndent: 20,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            color: Colors.black45,
-                            Icons.credit_card,
-                          ),
-                          SizedBox(
-                            width:8.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text(
-                                'Wallet',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Text('${expertController.expert?.wallet}'),
-                              SizedBox(
-                                height: 25.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        width:3.0,
-                      ),
-                      Container(
-                        width: 140,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.purple[800],
-
-                        ),
-                        child: MaterialButton(
-                            child: const Text('Counseling settings',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10.0,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                                return Counseling_Settings();
-                              }));
-                            }),
-                      ),
-                      const SizedBox(
-                        width:20.0,
-                      ),
-                      Container(
-                        width: 140,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.purple[800],
-                        ),
-                        child: MaterialButton(
-                            child: Text('Booked appointments',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10.0,
-                              ),),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                                return Booked_appointments();
-                              }));
-                            }),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
         ),
       ),
     );
