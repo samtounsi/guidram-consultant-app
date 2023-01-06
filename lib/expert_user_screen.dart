@@ -59,23 +59,6 @@ class _expert_user_screenState extends State<expert_user_screen> {
     );
   }
 
-  void _show2(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.white70,
-        content: const Text(
-            'This expert has been removed from your favorites list',
-            style: TextStyle(color: Colors.black87)),
-        action: SnackBarAction(
-          label: 'ok',
-          textColor: Colors.purple[800],
-          onPressed: scaffold.hideCurrentSnackBar,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     print(id);
@@ -126,15 +109,12 @@ class _expert_user_screenState extends State<expert_user_screen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      is_fav = !is_fav;
-                      if (is_fav) {
-                        _show1(context);
-                      }
-                      if (!is_fav) {
-                        _show2(context);
-                      }
+                      if(is_fav==false){
+                        is_fav = true;
+                        _show1(context);}
                     });
-                  }),
+                  }
+              ),
             ],
           ),
           SizedBox(
@@ -341,7 +321,8 @@ class _expert_user_screenState extends State<expert_user_screen> {
                             ),
                           ),
                           onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
                               return Appointment_Booking();
                             }));
                           }),
