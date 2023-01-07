@@ -131,45 +131,6 @@ class expert_profile extends StatelessWidget {
                                 children: [
                                   Icon(
                                     color: Colors.black45,
-                                    Icons.star_border_sharp,
-                                    size: 25,
-                                  ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 7.0,
-                                      ),
-                                      Text(
-                                        'Rating',
-                                        style: TextStyle(
-                                          color: Colors.black45,
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10.0,
-                                      ),
-                                      Text('4'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Divider(
-                                color: Colors.purple[800],
-                                height: 40,
-                                indent: 10,
-                                endIndent: 20,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    color: Colors.black45,
                                     Icons.email_outlined,
                                   ),
                                   SizedBox(
@@ -356,6 +317,45 @@ class expert_profile extends StatelessWidget {
                                       SizedBox(
                                         height: 25.0,
                                       ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.purple[800],
+                                height: 40,
+                                indent: 10,
+                                endIndent: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    color: Colors.black45,
+                                    Icons.star_border_sharp,
+                                    size: 25,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 7.0,
+                                      ),
+                                      Text(
+                                        'Rating',
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text('4'),
                                     ],
                                   ),
                                 ],

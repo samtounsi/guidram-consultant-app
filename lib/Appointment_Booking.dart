@@ -62,6 +62,33 @@ print(id);
             ),
           ],
         ),
+        actions: [
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 2,
+                top:6 ,
+                bottom:2 ,
+                left:2 ,
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.credit_card,
+                      ),
+                      Text(
+                          '10000'
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width:10.0,
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
       body:Obx(
     () => visitedExpertController.isLoading.value

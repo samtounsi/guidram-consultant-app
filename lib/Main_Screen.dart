@@ -9,14 +9,11 @@ import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/login.dart';
 import "globalvariables.dart" as globals;
 
-
 class Main_Screen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    AuthController authController=Get.put(AuthController());
+    AuthController authController = Get.put(AuthController());
     var searchController = TextEditingController();
-
 
     return Scaffold(
       appBar: AppBar(
@@ -36,11 +33,10 @@ class Main_Screen extends StatelessWidget {
           children: [
             Text(
               'Guideram',
-              style: TextStyle(color: Colors.white,
+              style: TextStyle(
+                color: Colors.white,
                 fontSize: 23.0,
-
               ),
-
             ),
           ],
         ),
@@ -50,7 +46,7 @@ class Main_Screen extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () {
-              globals.tokken="";
+              globals.tokken = "";
               authController.isAuth(false);
               //Navigation
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -60,17 +56,23 @@ class Main_Screen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple[800],
-        child: Icon(
-          Icons.person_outline_rounded,
-        ),
-        onPressed: () {
-          Get.delete<ExpertController>();
-          //Navigation
-         Get.to(()=>expert_profile());
-        },
-      ),
+      floatingActionButton: (true)
+          ? FloatingActionButton(
+              backgroundColor: Colors.purple[800],
+              child: Icon(
+                Icons.person,
+                size: 28,
+              ),
+              onPressed: () {},
+            )
+          : FloatingActionButton(
+              backgroundColor: Colors.purple[800],
+              child: Icon(
+                Icons.favorite,
+                size: 28,
+              ),
+              onPressed: () {},
+            ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Expanded(
@@ -81,22 +83,22 @@ class Main_Screen extends StatelessWidget {
                   height: 2.0,
                 ),
                 TextField(
-                    maxLines: 1,
-                    controller: searchController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      contentPadding: EdgeInsets.symmetric(vertical: 15.0),
-                      border: OutlineInputBorder(
-                        gapPadding: 2.0,
-                      ),
-                      prefixIcon: IconButton(
-                        color: Colors.purple[800],
-                        icon:Icon(Icons.search),
-                        onPressed: (){},
-                      ),
+                  maxLines: 1,
+                  controller: searchController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+                    border: OutlineInputBorder(
+                      gapPadding: 2.0,
+                    ),
+                    prefixIcon: IconButton(
+                      color: Colors.purple[800],
+                      icon: Icon(Icons.search),
+                      onPressed: () {},
                     ),
                   ),
+                ),
                 SizedBox(
                   height: 22.0,
                 ),
@@ -117,12 +119,11 @@ class Main_Screen extends StatelessWidget {
                               width: 150.0,
                             ),
                             onPressed: () {
-                              Get.delete<ExpertsController>();                  //Navigation
+                              Get.delete<ExpertsController>(); //Navigation
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return const ExpertsByType("medical");
                               }));
-
                             },
                           ),
                         ),
@@ -296,7 +297,7 @@ class Main_Screen extends StatelessWidget {
                       ),
                       Text(
                         overflow: TextOverflow.ellipsis,
-                        maxLines:1,
+                        maxLines: 1,
                         'Management and business consulting',
                         style: TextStyle(
                           fontSize: 13.0,
