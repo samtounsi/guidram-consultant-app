@@ -5,6 +5,7 @@ import 'package:guideram/model/Appointment.dart';
 import 'package:guideram/model/Expert.dart';
 import "package:guideram/globalvariables.dart" as globals;
 import "package:http/http.dart" as http;
+import '../model/ListFreeTime.dart';
 
 class ExpertController extends GetxController {
   var isLoading = true.obs;
@@ -27,7 +28,7 @@ class ExpertController extends GetxController {
           Uri.parse("${globals.Uri}/api/expert/${id}")!,
           headers: {"Authorization": "Bearer ${globals.tokken}"});
       print(response.statusCode);
-
+      print( jsonDecode(response.body));
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
           expert = Expert.fromJson(result["data"]);
@@ -128,7 +129,7 @@ class ExpertController extends GetxController {
           headers: headers
       );
       var responseData = json.decode(response.body);
-      print (responseData["message"]);
+      print (responseData);
       Get.snackbar(
         "Info",
         responseData["message"],
@@ -144,4 +145,7 @@ class ExpertController extends GetxController {
       isLoading2(false);
     }
   }
+
+
 }
+

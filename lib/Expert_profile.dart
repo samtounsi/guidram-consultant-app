@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Main_screen.dart';
+import 'package:guideram/controllers/authController.dart';
 import 'globalvariables.dart' as globals;
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
@@ -11,7 +12,8 @@ class expert_profile extends StatelessWidget {
   const expert_profile({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    ExpertController expertController = Get.put(ExpertController(1));
+    AuthController authController=Get.put(AuthController());
+    ExpertController expertController = Get.put(ExpertController(authController.stateId));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],

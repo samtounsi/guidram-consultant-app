@@ -32,7 +32,7 @@ class Expert {
   late final String password;
   late final String name;
   late final String photo;
-  late final int wallet;
+  late final dynamic wallet;
   late final List<ExpertConsultationTypes>? expertConsultationTypes;
   late final List<WorkTime>? workTime;
 

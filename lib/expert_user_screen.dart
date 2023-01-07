@@ -402,10 +402,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return Appointment_Booking();
-                            }));
+                            Get.to(()=>Appointment_Booking(),arguments: id);
                           }),
                     ),
                   ),

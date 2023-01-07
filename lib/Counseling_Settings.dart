@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/controllers/authController.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:inspection/inspection.dart';
@@ -33,8 +34,8 @@ class Counseling {
     required this.name,
   });
 }
-
-ExpertController expertController = Get.put(ExpertController(1));
+AuthController authController=Get.put(AuthController());
+ExpertController expertController = Get.put(ExpertController(authController.stateId));
 
 class _Counseling_SettingsState extends State<Counseling_Settings> {
   var PriceController = TextEditingController();
@@ -434,120 +435,121 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                        'Your work times:',
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Column(
-                    children: [
-                      DataTable(
-                        columnSpacing: 70,
-                        horizontalMargin: 10,
-                        columns: const <DataColumn>[
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'Day',
-                                style: TextStyle(
-                                  color: Color(0xFF6A1B9A),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'From',
-                                style: TextStyle(
-                                  color: Color(0xFF6A1B9A),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'To',
-                                style: TextStyle(
-                                  color: Color(0xFF6A1B9A),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                        rows: const <DataRow>[
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text(
-                                'Sunday',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                              DataCell(Text(
-                                '9',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                              DataCell(Text(
-                                '12',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text(
-                                'Monday',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                              DataCell(Text(
-                                '9',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                              DataCell(Text(
-                                '12',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              )),
-                            ],
-                          ),
-                        ],
-                      ),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(
+                  //       width: 5.0,
+                  //     ),
+                  //     Text(
+                  //       'Your work times:',
+                  //       style: TextStyle(
+                  //         fontSize: 22.0,
+                  //         fontWeight: FontWeight.w300,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  // Column(
+                  //   children: [
+                  //     _createDataTable()
+                      // DataTable(
+                      //   columnSpacing: 70,
+                      //   horizontalMargin: 10,
+                      //   columns: const <DataColumn>[
+                      //     DataColumn(
+                      //       label: Expanded(
+                      //         child: Text(
+                      //           'Day',
+                      //           style: TextStyle(
+                      //             color: Color(0xFF6A1B9A),
+                      //             fontSize: 18.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     DataColumn(
+                      //       label: Expanded(
+                      //         child: Text(
+                      //           'From',
+                      //           style: TextStyle(
+                      //             color: Color(0xFF6A1B9A),
+                      //             fontSize: 18.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     DataColumn(
+                      //       label: Expanded(
+                      //         child: Text(
+                      //           'To',
+                      //           style: TextStyle(
+                      //             color: Color(0xFF6A1B9A),
+                      //             fontSize: 18.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      //   rows: const <DataRow>[
+                      //     DataRow(
+                      //       cells: <DataCell>[
+                      //         DataCell(Text(
+                      //           'Sunday',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //         DataCell(Text(
+                      //           '9',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //         DataCell(Text(
+                      //           '12',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //       ],
+                      //     ),
+                      //     DataRow(
+                      //       cells: <DataCell>[
+                      //         DataCell(Text(
+                      //           'Monday',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //         DataCell(Text(
+                      //           '9',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //         DataCell(Text(
+                      //           '12',
+                      //           style: TextStyle(
+                      //             fontSize: 15.0,
+                      //             fontWeight: FontWeight.w300,
+                      //           ),
+                      //         )),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
                       /*Row(
                         children: [
                           const SizedBox(
@@ -585,9 +587,9 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                           ),
                         ],
                       ),*/
-                      SizedBox(
-                        height: 15,
-                      ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
                       /* ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -599,8 +601,8 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                         ),
                         itemCount: wt.length,
                       ),*/
-                    ],
-                  ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -649,7 +651,88 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
           ],
         ),
       );*/
-
+  DataTable _createDataTable() {
+    return DataTable(columns: _createColumns(), rows: _createRows());
+  }
+  List<DataColumn> _createColumns() {
+    return [
+      DataColumn(
+        label: Expanded(
+          child: Text(
+            'Day',
+            style: TextStyle(
+              color: Color(0xFF6A1B9A),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text(
+            'From',
+            style: TextStyle(
+              color: Color(0xFF6A1B9A),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text(
+            'To',
+            style: TextStyle(
+              color: Color(0xFF6A1B9A),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ),
+    ];
+  }
+  List<DataRow> _createRows() {
+    print( expertController.expert!.workTime);
+    Map<int,String> dayMap={
+      1:"Sunday",
+      2:"Monday",
+      3:"Tuesday",
+      4:"Wednesday",
+      5:"Thursday",
+      6:"Friday",
+      7:"Saturday",
+    };
+    return expertController.expert!.workTime
+        !.map((time) =>  DataRow(
+      cells: <DataCell>[
+        DataCell(Text(
+          dayMap[time.day]!,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w300,
+          ),
+        )),
+        DataCell(Text(
+          time.from.toString(),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w300,
+          ),
+        )),
+        DataCell(Text(
+          time.to.toString(),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w300,
+          ),
+        )),
+      ],
+    ),)
+        .toList();
+  }
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(

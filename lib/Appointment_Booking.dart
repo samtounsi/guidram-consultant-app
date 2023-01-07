@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/controllers/visitedexpertcontroller.dart';
+import 'package:get/get.dart';
 
+import 'Main_Screen.dart';
+import 'controllers/authController.dart';
 class App_book {
   final String time;
   final String duration;
@@ -22,18 +26,22 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
     App_book(time: '8:00', duration: '2 hour')
   ];
 
+  /////////////////////////////////id
+var id= Get.arguments;
+  VisitedExpertController visitedExpertController = Get.put(VisitedExpertController(Get.arguments));
+
+
   @override
   Widget build(BuildContext context) {
+    visitedExpertController.getListFree(id);
+print(id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            /* //Navigation
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Main_Screen();
-            }));*/
+            Get.to(()=>Main_Screen());
           },
         ),
         title: Row(
@@ -55,7 +63,12 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
           ],
         ),
       ),
-      body: Padding(
+      body:Obx(
+    () => visitedExpertController.isLoading.value
+    ? Center(
+    child: CircularProgressIndicator(),
+    )
+        : Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child: Column(
@@ -93,11 +106,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["sun"].elementAt(index), context,"Sunday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["sun"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -134,11 +147,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["mon"].elementAt(index), context,"Monday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["mon"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -175,11 +188,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["tus"].elementAt(index), context,"Tuesday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["tus"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -216,11 +229,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["wed"].elementAt(index), context,"Wednesday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["wed"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -257,11 +270,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["ths"].elementAt(index), context,"Thursday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["ths"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -298,11 +311,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["fri"].elementAt(index), context,"Friday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["fri"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -339,11 +352,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) =>
-                    buildApp_booitem(boo.elementAt(index), context),
+                    buildApp_booitem(visitedExpertController.freeTime["sut"].elementAt(index), context,"Saturday"),
                 separatorBuilder: (context, index) => SizedBox(
                   height:0,
                 ),
-                itemCount: boo.length,
+                itemCount: visitedExpertController.freeTime["sut"].length,
               ),
               SizedBox(
                 height: 20.0,
@@ -352,10 +365,11 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
           ),
         ),
       ),
+    ),
     );
   }
 
-  Widget buildApp_booitem(App_book boo, BuildContext context) => Row(
+  Widget buildApp_booitem(int boo, BuildContext context,String day) => Row(
     children: [
       SizedBox(
         width: 35.0,
@@ -366,7 +380,7 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
           fontSize: 18.0,
           fontWeight: FontWeight.w300,
         ),
-        '${boo.time}',
+        '${boo<10?"0$boo":boo}',
       ),
       SizedBox(
         width: 20.0,
@@ -381,7 +395,7 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
           fontSize: 18.0,
           fontWeight: FontWeight.w300,
         ),
-        '${boo.duration}',
+        "Duration  ${visitedExpertController.expert!.duration}:00",
       ),
       SizedBox(
         width: 80.0,
@@ -391,7 +405,10 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
           'Book',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
         ),
-        onPressed: () {},
+        onPressed: () {
+          visitedExpertController.book(day, boo);
+          visitedExpertController.getListFree(id);
+        },
       ),
     ],
   );

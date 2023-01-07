@@ -4,7 +4,7 @@ class Experts {
   String? email;
   String? name;
   String? photo;
-  int? wallet;
+  dynamic? wallet;
   int? expertId;
   String? phone;
   String? experience;

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:guideram/Main_Screen.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/controllers/expertscontroller.dart';
+import 'package:guideram/controllers/visitedexpertcontroller.dart';
 import 'package:guideram/model/Experts.dart';
 import '../expert_user_screen.dart';
 
@@ -67,8 +68,7 @@ class ExpertsByType extends StatelessWidget {
           ],
         ),
         onPressed: () {
-          Get.delete<ExpertController>();
-          print(expert.expertId);
+          Get.delete<VisitedExpertController>();
           Get.to(expert_user_screen(expert.expertId!));
         },
       );
