@@ -8,6 +8,7 @@ import 'package:guideram/Expert_Screen.dart';
 import 'package:guideram/Expert_profile.dart';
 import 'package:guideram/Favourite.dart';
 import 'package:guideram/Main_screen.dart';
+import 'package:guideram/Search_screen.dart';
 import 'package:guideram/expert_user_screen.dart';
 import 'package:guideram/signup.dart';
 /*import 'package:guideram/Consulting%20pages/Business_and_management.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner:false,
-        home:expert_profile(),
+        home:Search_screen(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],
