@@ -132,18 +132,10 @@ class _FavouriteState extends State<Favourite> {
                     SizedBox(
                       width: 35.0,
                     ),
-                    IconButton(
-                      icon:Icon( is_fav
-                       ? Icons.favorite
-                       : Icons.favorite_border_outlined,
-                        color:Colors.purple[800],
+                    Icon(
+                    Icons.favorite,
+                      color: Colors.purple[800],
                       ),
-                    onPressed: () {
-                    setState(() {
-                      is_fav= !is_fav;
-                    });
-  }
-  ),
                   ],
                 ),
               ],

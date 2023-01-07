@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guideram/Appointment_Booking.dart';
 import 'package:guideram/Main_screen.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
@@ -60,23 +61,6 @@ class _expert_user_screenState extends State<expert_user_screen> {
     );
   }
 
-  void _show2(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.white70,
-        content: const Text(
-            'This expert has been removed from your favorites list',
-            style: TextStyle(color: Colors.black87)),
-        action: SnackBarAction(
-          label: 'ok',
-          textColor: Colors.purple[800],
-          onPressed: scaffold.hideCurrentSnackBar,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     print(id);
@@ -125,12 +109,9 @@ class _expert_user_screenState extends State<expert_user_screen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      is_fav = !is_fav;
-                      if (is_fav) {
+                      if (is_fav == false) {
+                        is_fav = true;
                         _show1(context);
-                      }
-                      if (!is_fav) {
-                        _show2(context);
                       }
                     });
                   }),
@@ -211,6 +192,44 @@ class _expert_user_screenState extends State<expert_user_screen> {
                 children: [
                   Column(
                     children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.star_border_sharp,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 7.0,
+                              ),
+                              Text(
+                                'Rating',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text('4'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        color: Colors.purple[800],
+                        height: 40,
+                        indent: 10,
+                        endIndent: 20,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -322,6 +341,43 @@ class _expert_user_screenState extends State<expert_user_screen> {
                           ),
                         ],
                       ),
+                      Divider(
+                        color: Colors.purple[800],
+                        height: 40,
+                        indent: 10,
+                        endIndent: 20,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            color: Colors.black45,
+                            Icons.contact_support_outlined,
+                          ),
+                          SizedBox(
+                            width: 7.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                'Consultation type',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(maxLines: 2, 'Medical Consultation'),
+                            ],
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: 30.0,
                       ),
@@ -345,9 +401,10 @@ class _expert_user_screenState extends State<expert_user_screen> {
                             ),
                           ),
                           onPressed: () {
-                            /*  Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                              return ();
-                            }));*/
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return Appointment_Booking();
+                            }));
                           }),
                     ),
                   ),

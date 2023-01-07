@@ -15,6 +15,8 @@ class Main_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthController authController=Get.put(AuthController());
+    var searchController = TextEditingController();
+
 
     return Scaffold(
       appBar: AppBar(
@@ -78,26 +80,23 @@ class Main_Screen extends StatelessWidget {
                 SizedBox(
                   height: 2.0,
                 ),
-                Container(
-                  padding: EdgeInsets.all(7.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(
-                      1.0,
+                TextField(
+                    maxLines: 1,
+                    controller: searchController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+                      border: OutlineInputBorder(
+                        gapPadding: 2.0,
+                      ),
+                      prefixIcon: IconButton(
+                        color: Colors.purple[800],
+                        icon:Icon(Icons.search),
+                        onPressed: (){},
+                      ),
                     ),
-                    color: Colors.grey[300],
                   ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.search,
-                      ),
-                      SizedBox(
-                        width: 15.0,
-                      ),
-                      Text('Search'),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 22.0,
                 ),

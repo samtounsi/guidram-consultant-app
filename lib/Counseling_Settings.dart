@@ -13,6 +13,17 @@ class Counseling_Settings extends StatefulWidget {
   State<Counseling_Settings> createState() => _Counseling_SettingsState();
 }
 
+/*class Work_Time {
+  final String day;
+  final String from;
+  final String to;
+  Work_Time({
+    required this.day,
+    required this.from,
+    required this.to,
+  });
+}*/
+
 class Counseling {
   final int id;
   final String name;
@@ -37,9 +48,9 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
   isValid() {
     return FormKey.currentState!.validate();
   }
-  isTimeValid(){
-    if (int.parse(startController.text) <
-        int.parse(endController.text)) {
+
+  isTimeValid() {
+    if (int.parse(startController.text) < int.parse(endController.text)) {
       print(startController.text);
       print(endController.text);
     } else {
@@ -70,6 +81,16 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
       con.map((Con) => MultiSelectItem<Counseling>(Con, Con.name)).toList();
   List<Counseling> selectedCounseling = [];
 
+  /*List<Work_Time> wt = [
+    Work_Time(day: 'Sun', from: '9', to: '12'),
+    Work_Time(day: 'Mon', from: '9', to: '12'),
+    Work_Time(day: 'Tue', from: '9', to: '12'),
+    Work_Time(day: 'Wed', from: '9', to: '12'),
+    Work_Time(day: 'Thu', from: '9', to: '12'),
+    Work_Time(day: 'Fri', from: '9', to: '12'),
+    Work_Time(day: 'Sat', from: '9', to: '12'),
+  ];*/
+
   @override
   void initState() {
     selectedCounseling = [];
@@ -99,11 +120,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(
-          top: 30,
-          right: 25.0,
-          left: 25.0,
-        ),
+        padding: const EdgeInsets.all(20),
         child: Expanded(
           child: SingleChildScrollView(
             child: Form(
@@ -150,7 +167,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
-                    height: 35.0,
+                    height: 20.0,
                   ),
                   DropdownButtonFormField(
                       decoration: InputDecoration(
@@ -176,7 +193,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       },
                       items: dropdownItems),
                   const SizedBox(
-                    height: 35.0,
+                    height: 20.0,
                   ),
                   MultiSelectDialogField(
                     onConfirm: (val) {
@@ -199,7 +216,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                         selectedCounseling, // setting the value of this in initState() to pre-select values.
                   ),
                   const SizedBox(
-                    height: 30.0,
+                    height: 18.0,
                   ),
                   /*Container(
                     width: 100.0,
@@ -225,9 +242,6 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       color: Colors.purple[800],
                     ),
                   ),*/
-                  const SizedBox(
-                    height: 20.0,
-                  ),
                   Obx(
                     () => expertController.isLoading.value
                         ? CircularProgressIndicator()
@@ -238,10 +252,16 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                               onPressed: () {
                                 if (isValid()) {
                                   List<dynamic> cons = [];
-                                  for (int i = 0; i < selectedCounseling.length; i++) {
-                                    cons.add(selectedCounseling[i].id.toString());
+                                  for (int i = 0;
+                                      i < selectedCounseling.length;
+                                      i++) {
+                                    cons.add(
+                                        selectedCounseling[i].id.toString());
                                   }
-                                  expertController.postSettings(PriceController.text,selectedValue!,cons);
+                                  expertController.postSettings(
+                                      PriceController.text,
+                                      selectedValue!,
+                                      cons);
                                 }
                               },
                               child: Text(
@@ -260,7 +280,22 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                           ),
                   ),
                   const SizedBox(
-                    height: 20.0,
+                    height: 30.0,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Add work time:',
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15.0,
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 10),
@@ -296,7 +331,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30.0,
+                    height: 20.0,
                   ),
                   Form(
                     key: Form_Key,
@@ -367,34 +402,205 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                     ),
                   ),
                   const SizedBox(
+                    height: 25.0,
+                  ),
+                  Obx(
+                    () => expertController.isLoading2.value
+                        ? CircularProgressIndicator()
+                        : Container(
+                            width: 100.0,
+                            child: MaterialButton(
+                              height: 20.0,
+                              onPressed: () {
+                                if (isTimeValid()) {
+                                  expertController.postWorkTime(Select_day,
+                                      startController.text, endController.text);
+                                }
+                              },
+                              child: Text(
+                                'add',
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.purple[800],
+                            ),
+                          ),
+                  ),
+                  const SizedBox(
                     height: 30.0,
                   ),
-              Obx(
-                    () => expertController.isLoading2.value
-                    ? CircularProgressIndicator()
-                    :Container(
-                    width: 100.0,
-                    child: MaterialButton(
-                      height: 20.0,
-                      onPressed: () {
-                        if (isTimeValid()) {
-                            expertController.postWorkTime(Select_day, startController.text, endController.text);
-                        }
-                      },
-                      child: Text(
-                        'add',
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'Your work times:',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          //fontWeight: FontWeight.bold,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.purple[800],
-                    ),
-                  ),),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Column(
+                    children: [
+                      DataTable(
+                        columnSpacing: 70,
+                        horizontalMargin: 10,
+                        columns: const <DataColumn>[
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Day',
+                                style: TextStyle(
+                                  color: Color(0xFF6A1B9A),
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'From',
+                                style: TextStyle(
+                                  color: Color(0xFF6A1B9A),
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'To',
+                                style: TextStyle(
+                                  color: Color(0xFF6A1B9A),
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                        rows: const <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text(
+                                'Sunday',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                              DataCell(Text(
+                                '9',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                              DataCell(Text(
+                                '12',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text(
+                                'Monday',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                              DataCell(Text(
+                                '9',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                              DataCell(Text(
+                                '12',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      /*Row(
+                        children: [
+                          const SizedBox(
+                            width:25.0,
+                          ),
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            'Day',
+                          ),
+                          const SizedBox(
+                            width:78.0,
+                          ),
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            'From',
+                          ),
+                          const SizedBox(
+                            width:80.0,
+                          ),
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            'To',
+                          ),
+                        ],
+                      ),*/
+                      SizedBox(
+                        height: 15,
+                      ),
+                      /* ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) =>
+                            build_worktime_item(wt.elementAt(index), context),
+                        separatorBuilder: (context, index) => SizedBox(
+                          height:5,
+                        ),
+                        itemCount: wt.length,
+                      ),*/
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -403,6 +609,46 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
       ),
     );
   }
+
+  /*Widget build_worktime_item(Work_Time wt, BuildContext context) => Center(
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 30.0,
+            ),
+            Text(
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w300,
+              ),
+              '${wt.day}',
+            ),
+            const SizedBox(
+              width: 90.0,
+            ),
+            Text(
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w300,
+              ),
+              '${wt.from}',
+            ),
+            const SizedBox(
+              width: 100.0,
+            ),
+            Text(
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w300,
+              ),
+              '${wt.to}',
+            ),
+          ],
+        ),
+      );*/
 
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
