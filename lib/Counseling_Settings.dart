@@ -37,6 +37,16 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
   isValid() {
     return FormKey.currentState!.validate();
   }
+  isTimeValid(){
+    if (int.parse(startController.text) <
+        int.parse(endController.text)) {
+      print(startController.text);
+      print(endController.text);
+    } else {
+      _showToast(context);
+    }
+    return Form_Key.currentState!.validate();
+  }
 
   static List<Counseling> con = [
     Counseling(id: 1, name: "Medical"),
@@ -359,18 +369,16 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  Container(
+              Obx(
+                    () => expertController.isLoading2.value
+                    ? CircularProgressIndicator()
+                    :Container(
                     width: 100.0,
                     child: MaterialButton(
                       height: 20.0,
                       onPressed: () {
-                        if (Form_Key.currentState!.validate()) {
-                          if (int.parse(startController.text) <
-                              int.parse(endController.text)) {
-                            print(startController.text);
-                            print(endController.text);
-                          } else
-                            _showToast(context);
+                        if (isTimeValid()) {
+                            expertController.postWorkTime(Select_day, startController.text, endController.text);
                         }
                       },
                       child: Text(
@@ -386,7 +394,7 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                       // borderRadius: BorderRadius.circular(20.0),
                       color: Colors.purple[800],
                     ),
-                  ),
+                  ),),
                 ],
               ),
             ),

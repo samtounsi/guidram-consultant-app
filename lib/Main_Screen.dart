@@ -66,10 +66,7 @@ class Main_Screen extends StatelessWidget {
         onPressed: () {
           Get.delete<ExpertController>();
           //Navigation
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) {
-            return expert_profile();
-          }));
+         Get.to(()=>expert_profile());
         },
       ),
       body: Padding(

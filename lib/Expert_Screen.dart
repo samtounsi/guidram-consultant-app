@@ -30,50 +30,25 @@ class _Expert_ScreenState extends State<Expert_Screen> {
   var FormKey = GlobalKey<FormState>();
   var Select_Consulting = "Medical Consulting";
 
-  var uri = Uri.parse("${globals.Uri}/api/expert/register");
-  postRequest() async {
-    try {
-      var response = await http.post(uri, body: {
-        'name': NameController.text,
-        'phone': phoneController.text,
-        'address': AddressController.text,
-        "email": emailController.text,
-        "password": passwordController.text,
-        'is_expert':'1',
-        'experience': ExperienceController.text,
-      });
-
-      var responseData = json.decode(response.body);
-      String token = responseData['token'];
-      if(!token.isEmpty) {
-        globals.tokken = token;
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return Main_Screen();
-        }));
-      } else {
-        print("err");
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
   AuthController authController=Get.put(AuthController());
 
   isValid() {
     return FormKey.currentState!.validate();
   }
 
-  XFile? image;
-
+  File? _image;
+  PickedFile?_pickedFile;
   final ImagePicker picker = ImagePicker();
 
   //we can upload image from camera or from gallery based on parameter
-  Future getImage(ImageSource media) async {
-    var img = await picker.pickImage(source: media);
-
-    setState(() {
-      image = img;
-    });
+  Future<void> getImage(ImageSource media) async {
+    _pickedFile = await picker.getImage(source:media);
+    if(_pickedFile!=null) {
+      setState(() {
+        _image =File(_pickedFile!.path) ;
+      });
+      print(_image);
+    }
   }
 
   //show popup dialog
@@ -128,7 +103,6 @@ class _Expert_ScreenState extends State<Expert_Screen> {
   Widget build(BuildContext context) {
     var vendorProfile;
     var SvgPicture;
-    var image;
     var apiUrl;
     return Scaffold(
       appBar: AppBar(
@@ -163,14 +137,14 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                 children: [
                   Column(
                     children: [
-                      image != null
+                      _image != null
                           ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child:ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child:  Image.file(
                             //to show image, you type like this.
-                            File(image!.path),
+                            File(_image!.path),
                             fit: BoxFit.cover,
                             width:110,
                             height:110,
@@ -433,7 +407,7 @@ class _Expert_ScreenState extends State<Expert_Screen> {
                       onPressed: () {
                         if (isValid()) {
                           // postRequest();
-                          authController.CreateExpert(NameController.text,phoneController.text,emailController.text, passwordController.text,ExperienceController.text,AddressController.text,context);
+                          authController.CreateExpert(NameController.text,phoneController.text,emailController.text, passwordController.text,ExperienceController.text,AddressController.text,Select_Consulting,_image);
                           if(authController.isAuth==true){
                           }
                           print("error");

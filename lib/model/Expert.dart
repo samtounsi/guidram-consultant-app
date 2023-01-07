@@ -27,7 +27,7 @@ class Expert {
   late final dynamic cost;
   late final int? duration;
   late final int userId;
-  late final int isExpert;
+  late final dynamic isExpert;
   late final String email;
   late final String password;
   late final String name;

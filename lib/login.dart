@@ -180,9 +180,7 @@ class _LoginState extends State<Login> {
                         height: 20.0,
                         onPressed: () {
                           if (isValid()) {
-                         // postRequest();
-                            authController.login(emailController.text, passwordController.text,context);
-                            print("error");
+                            authController.login(emailController.text, passwordController.text);
                           }
                         },
                         child: Text(

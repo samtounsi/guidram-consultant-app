@@ -31,18 +31,22 @@ class _User_ScreenState extends State<User_Screen> {
     return FormKey.currentState!.validate();
   }
 
-  XFile? image;
-
+  File? _image;
+PickedFile?_pickedFile;
   final ImagePicker picker = ImagePicker();
 
   //we can upload image from camera or from gallery based on parameter
-  Future getImage(ImageSource media) async {
-    var img = await picker.pickImage(source: media);
-
-    setState(() {
-      image = img;
-    });
+  Future<void> getImage(ImageSource media) async {
+    _pickedFile = await picker.getImage(source:media);
+    if(_pickedFile!=null) {
+      setState(() {
+        _image =File(_pickedFile!.path) ;
+      });
+      print(_image);
+    }
   }
+
+
 
   //show popup dialog
   void myAlert() {
@@ -126,14 +130,14 @@ class _User_ScreenState extends State<User_Screen> {
                 children: [
                  Column(
                     children: [
-                      image != null
+                      _image != null
                           ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child:ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child:  Image.file(
                             //to show image, you type like this.
-                            File(image!.path),
+                            File(_image!.path),
                             fit: BoxFit.cover,
                             width:110,
                             height:110,
@@ -297,7 +301,7 @@ class _User_ScreenState extends State<User_Screen> {
                       height: 20.0,
                       onPressed: () {
                         if (isValid()) {
-                          authController.CreateUser(NameController.text, phoneController.text, emailController.text, passwordController.text,context);
+                          authController.CreateUser(NameController.text, phoneController.text, emailController.text, passwordController.text,_image);
 
                           // postRequest();
                         }

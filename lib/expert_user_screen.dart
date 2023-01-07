@@ -6,6 +6,8 @@ import 'package:guideram/model/Expert.dart';
 import "package:get/get.dart";
 import 'package:rating_dialog/rating_dialog.dart';
 
+import 'controllers/visitedexpertcontroller.dart';
+
 class expert_user_screen extends StatefulWidget {
   int id;
   expert_user_screen(this.id, {super.key});
@@ -78,9 +80,9 @@ class _expert_user_screenState extends State<expert_user_screen> {
   @override
   Widget build(BuildContext context) {
     print(id);
-    ExpertController expertController = Get.put(ExpertController(id));
-    expertController.fetchExpert(id, true);
-    print(expertController.expert!.name);
+    VisitedExpertController visitedExpertController = Get.put(VisitedExpertController(id));
+    visitedExpertController.fetchExpert(id);
+    print(visitedExpertController?.expert?.name);
 
     return Scaffold(
       appBar: AppBar(
@@ -92,9 +94,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
           ),
           onPressed: () {
             //Navigation
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Main_Screen();
-            }));
+            Get.to(()=>Main_Screen());
           },
         ),
         actions: [
@@ -141,7 +141,12 @@ class _expert_user_screenState extends State<expert_user_screen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body:  Obx(
+    () => visitedExpertController.isLoading.value
+    ? Center(
+    child: CircularProgressIndicator(),
+    )
+        :SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -174,7 +179,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                       height: 15.0,
                     ),
                     Text(
-                      '${expertController.expert!.name}',
+                      '${visitedExpertController?.expert?.name}',
                       style: TextStyle(
                         fontSize: 23.0,
                         color: Colors.white,
@@ -187,7 +192,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                         child: Text(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          '${expertController.expert!.experience}',
+                          '${visitedExpertController?.expert?.experience}',
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.white,
@@ -232,7 +237,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('${expertController.expert!.email}'),
+                              Text('${visitedExpertController?.expert?.email}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -272,7 +277,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('${expertController.expert!.phone}'),
+                              Text('${visitedExpertController?.expert?.phone}'),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -312,7 +317,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('${expertController.expert!.address}'),
+                              Text('${visitedExpertController?.expert?.address}'),
                             ],
                           ),
                         ],
@@ -352,6 +357,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
           ],
         ),
       ),
+    ),
     );
   }
 }

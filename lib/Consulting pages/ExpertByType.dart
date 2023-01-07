@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:guideram/Main_Screen.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/controllers/expertscontroller.dart';
 import 'package:guideram/model/Experts.dart';
-import 'package:loader_overlay/loader_overlay.dart';
-
 import '../expert_user_screen.dart';
 
 class ExpertsModel {
@@ -68,9 +67,9 @@ class ExpertsByType extends StatelessWidget {
           ],
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return expert_user_screen(expert.userId!);
-          }));
+          Get.delete<ExpertController>();
+          print(expert.expertId);
+          Get.to(expert_user_screen(expert.expertId!));
         },
       );
 

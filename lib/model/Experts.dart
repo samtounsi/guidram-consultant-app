@@ -1,6 +1,6 @@
 class Experts {
   int? userId;
-  int? isExpert;
+  dynamic? isExpert;
   String? email;
   String? name;
   String? photo;
@@ -9,9 +9,9 @@ class Experts {
   String? phone;
   String? experience;
   String? address;
-  int? rate;
+  dynamic? rate;
   int? rateCount;
-  double? cost;
+  dynamic? cost;
   int? duration;
 
   Experts(

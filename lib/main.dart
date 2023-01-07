@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Error_Screen.dart';
@@ -26,7 +27,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner:false,
         home:Main_Screen(),
         theme: ThemeData(

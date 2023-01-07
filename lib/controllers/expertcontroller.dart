@@ -8,21 +8,20 @@ import "package:http/http.dart" as http;
 
 class ExpertController extends GetxController {
   var isLoading = true.obs;
+  var isLoading2=false.obs;
   Expert? expert;
   var expertAppointment = <Appointment>[];
   late int id;
-  Expert?visitedExpert;
-
   ExpertController(this.id);
 
 
   Future <void> onInit() async {
     super.onInit();
-    fetchExpert(id, false);
+    fetchExpert(id);
     fetchAppointments(id);
   }
 
-  fetchExpert(int id, bool isVisited) async {
+  fetchExpert(int id) async {
     try {
       http.Response response = await http.get(
           Uri.parse("${globals.Uri}/api/expert/${id}")!,
@@ -31,12 +30,8 @@ class ExpertController extends GetxController {
 
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
-        if (isVisited) {
-          visitedExpert = Expert.fromJson(result["data"]);
-        } else {
           expert = Expert.fromJson(result["data"]);
         }
-      }
       else {
         print("error fetching code");
       }
@@ -96,11 +91,57 @@ class ExpertController extends GetxController {
       });
       print (response.statusCode);
       var responseData = json.decode(response.body);
+      Get.snackbar(
+        "Info",
+        responseData["message"],
+        snackPosition: SnackPosition.BOTTOM
+      );
     } catch (e) {
       print(e);
     }
     finally {
       isLoading(false);
+    }
+  }
+
+  postWorkTime(day,from,to) async {
+    try {
+      Map<String,int> dayMap={
+        "Sunday":1,
+        "Monday":2,
+        "Tuesday":3,
+        "Wednesday":4,
+        "Thursday":5,
+        "Friday":6,
+        "Saturday":7,
+      };
+      isLoading2(true);
+      final Uri uri = Uri.parse("${globals.Uri}/api/expert/$id");
+      final headers = {"Authorization": "Bearer ${globals.tokken}","Accept":" application/json"};
+      var response = await http.put(
+          Uri.parse("${globals.Uri}/api/expert/$id"),
+          body:{
+            "day":dayMap[day].toString(),
+            "from":from.toString(),
+            "to":to.toString()
+          },
+          headers: headers
+      );
+      var responseData = json.decode(response.body);
+      print (responseData["message"]);
+      Get.snackbar(
+        "Info",
+        responseData["message"],
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      print ("hgjkl;jkl;jghjkl;");
+
+
+    } catch (e) {
+      print(e);
+    }
+    finally {
+      isLoading2(false);
     }
   }
 }
