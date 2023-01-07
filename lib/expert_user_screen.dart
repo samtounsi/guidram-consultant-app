@@ -6,7 +6,7 @@ import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/model/Expert.dart';
 import "package:get/get.dart";
 import 'package:rating_dialog/rating_dialog.dart';
-
+import "globalvariables.dart" as globals;
 import 'controllers/visitedexpertcontroller.dart';
 
 class expert_user_screen extends StatefulWidget {
@@ -152,6 +152,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                       height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        image:DecorationImage(image: NetworkImage("${globals.Uri}/storage/${visitedExpertController?.expert?.photo}"),fit: BoxFit.cover),
                         color: const Color(0xffE6E6E6),
                         border: Border.all(color: const Color(0xff707070)),
                       ),

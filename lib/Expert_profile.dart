@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Booked_appointments.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Main_screen.dart';
+import 'globalvariables.dart' as globals;
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/login.dart';
 import 'package:get/get.dart';
@@ -48,13 +49,13 @@ class expert_profile extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Obx(
-          () => expertController.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
+      body:  Obx(
+            () => expertController.isLoading.value
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            :SingleChildScrollView(
+        child: Column(
                   children: [
                     Container(
                       height: 300,
@@ -78,6 +79,7 @@ class expert_profile extends StatelessWidget {
                               height: 120,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
+                                  image:DecorationImage(image: NetworkImage("${globals.Uri}/storage/${expertController?.expert?.photo}"),fit: BoxFit.cover),
                                 color: const Color(0xffE6E6E6),
                                 border:
                                     Border.all(color: const Color(0xff707070)),
