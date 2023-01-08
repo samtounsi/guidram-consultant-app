@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class Experts {
-  final String name;
-
-  Experts({
-    required this.name,
-  });
-}
+import 'controllers/searchController.dart';
+import 'controllers/visitedexpertcontroller.dart';
+import 'expert_user_screen.dart';
+import 'model/Experts.dart';
 
 class Search_screen extends StatelessWidget {
-
+  var arg=Get.arguments["search"];
+  SearchController searchController=Get.put(SearchController(Get.arguments["search"]));
   Widget buildExpertsitem(Experts expert, BuildContext context) =>
       MaterialButton(
         child: Column(
@@ -55,12 +55,11 @@ class Search_screen extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () {});
+        onPressed: () {
+          Get.delete<VisitedExpertController>();
+          Get.to(expert_user_screen(),arguments:expert.expertId! );
+        });
 
-  List<Experts> expert = [
-    Experts(name: 'Rawan'),
-    Experts(name: 'Rawan'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +69,7 @@ class Search_screen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
+            Get.back();
           },
         ),
         title: Row(
@@ -90,7 +90,12 @@ class Search_screen extends StatelessWidget {
           ],
         ),
       ),
-      body:Padding(
+      body:Obx(
+    () => searchController.isLoading.value
+    ? Center(
+    child: CircularProgressIndicator(),
+    )
+        :Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: ListView.separated(
@@ -98,14 +103,14 @@ class Search_screen extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) =>
-                buildExpertsitem(expert.elementAt(index), context),
+                buildExpertsitem(searchController.experts.elementAt(index), context),
             separatorBuilder: (context, index) => SizedBox(
               height: 10,
             ),
-            itemCount: expert.length,
+            itemCount: searchController.experts.length,
           ),
         ),
-      ),
+      ),),
     );
   }
 }

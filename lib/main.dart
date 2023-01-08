@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner:false,
-        home:Appointment_Booking(),
+        home:Main_Screen(),
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple[800],

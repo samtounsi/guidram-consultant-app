@@ -10,16 +10,16 @@ import "globalvariables.dart" as globals;
 import 'controllers/visitedexpertcontroller.dart';
 
 class expert_user_screen extends StatefulWidget {
-  int id;
-  expert_user_screen(this.id, {super.key});
+
+  expert_user_screen( {super.key});
   @override
-  State<expert_user_screen> createState() => _expert_user_screenState(id);
+  State<expert_user_screen> createState() => _expert_user_screenState();
 }
 
 class _expert_user_screenState extends State<expert_user_screen> {
-  int id = 0;
+
   bool is_fav = true;
-  _expert_user_screenState(this.id);
+  _expert_user_screenState();
 
   final _dialog = RatingDialog(
     enableComment: false,
@@ -60,11 +60,11 @@ class _expert_user_screenState extends State<expert_user_screen> {
       ),
     );
   }
-
+  var id=Get.arguments;
+  VisitedExpertController visitedExpertController = Get.put(VisitedExpertController(Get.arguments));
   @override
   Widget build(BuildContext context) {
     print(id);
-    VisitedExpertController visitedExpertController = Get.put(VisitedExpertController(id));
     visitedExpertController.fetchExpert(id);
     print(visitedExpertController?.expert?.name);
 
@@ -336,7 +336,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text(maxLines: 2, 'Medical Consultation'),
+                              Text(maxLines: 2, getConsultaions().toString()),
                             ],
                           ),
                         ],
@@ -414,5 +414,12 @@ class _expert_user_screenState extends State<expert_user_screen> {
       ),
     ),
     );
+  }
+  getConsultaions(){
+    var consultaions="";
+    visitedExpertController.expert?.expertConsultationTypes!.forEach((element) {
+      consultaions+="${element.type!}  ";
+    });
+    return consultaions;
   }
 }

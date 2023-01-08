@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/controllers/visitedexpertcontroller.dart';
 import 'package:get/get.dart';
 
@@ -78,7 +81,7 @@ print(id);
                         Icons.credit_card,
                       ),
                       Text(
-                          '10000'
+                          '${visitedExpertController.expert!.cost}'
                       ),
                     ],
                   ),
@@ -434,7 +437,10 @@ print(id);
         ),
         onPressed: () {
           visitedExpertController.book(day, boo);
-          visitedExpertController.getListFree(id);
+
+          Timer(Duration(seconds: 2), () {
+            visitedExpertController.getListFree(id);
+          });
         },
       ),
     ],

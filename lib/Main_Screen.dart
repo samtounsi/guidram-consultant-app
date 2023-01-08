@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:guideram/Consulting%20pages/ExpertByType.dart';
 import 'package:guideram/Expert_profile.dart';
+import 'package:guideram/Favourite.dart';
+import 'package:guideram/Search_screen.dart';
 import 'package:guideram/controllers/authController.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
 import 'package:guideram/controllers/expertscontroller.dart';
@@ -46,24 +48,34 @@ class Main_Screen extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () {
+              Get.offAll(()=>Login());
               globals.tokken = "";
               authController.isAuth(false);
+              authController.stateId=0;
+              authController.stateToken="";
               //Navigation
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return Login();
-              }));
+              Get.snackbar(
+                "Info",
+                "Logout Successful",
+                snackPosition: SnackPosition.BOTTOM,
+              );
+
             },
           ),
         ],
       ),
-      floatingActionButton: (true)
+      floatingActionButton: (authController.isExpert)
           ? FloatingActionButton(
               backgroundColor: Colors.purple[800],
               child: Icon(
                 Icons.person,
                 size: 28,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(()=>expert_profile());
+                Get.delete<ExpertController>(); //Navigation
+
+              },
             )
           : FloatingActionButton(
               backgroundColor: Colors.purple[800],
@@ -71,7 +83,9 @@ class Main_Screen extends StatelessWidget {
                 Icons.favorite,
                 size: 28,
               ),
-              onPressed: () {},
+              onPressed: () {
+                  Get.to(()=>Favourite());
+              },
             ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -95,7 +109,11 @@ class Main_Screen extends StatelessWidget {
                     prefixIcon: IconButton(
                       color: Colors.purple[800],
                       icon: Icon(Icons.search),
-                      onPressed: () {},
+                      onPressed: () {
+                        if(searchController.text.isNotEmpty) {
+                          Get.to(()=>Search_screen(),arguments: {"search":searchController.text} );
+                        }
+                      },
                     ),
                   ),
                 ),

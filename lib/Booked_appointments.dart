@@ -82,7 +82,7 @@ class Booked_appointments extends StatelessWidget {
                             fontSize: 18.0,
                             fontWeight: FontWeight.w500,
                           ),
-                          "${expertController.expert?.name}",
+                          "Anonymose",
                         ),
                         SizedBox(
                           width: 50,
@@ -93,7 +93,7 @@ class Booked_appointments extends StatelessWidget {
                             fontSize: 14.0,
                             fontWeight: FontWeight.w400,
                           ),
-                          '${getDay(Bookapp.day!)+"  "+"${Bookapp.from}:00"}',
+                          '${getDay(Bookapp.day!)+"  "+"${Bookapp.from!<10?"0${Bookapp.from}":"${Bookapp.from}"}:00"}',
                         ),
                       ],
                     ),

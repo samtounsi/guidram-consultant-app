@@ -69,7 +69,7 @@ class ExpertsByType extends StatelessWidget {
         ),
         onPressed: () {
           Get.delete<VisitedExpertController>();
-          Get.to(expert_user_screen(expert.expertId!));
+          Get.to(expert_user_screen(),arguments:expert.expertId! );
         },
       );
 
@@ -99,7 +99,7 @@ class ExpertsByType extends StatelessWidget {
               width: 10.0,
             ),
             Text(
-              '${type} Consulting',
+              '$type Consulting',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 15.0,

@@ -14,6 +14,7 @@ class expert_profile extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthController authController=Get.put(AuthController());
     ExpertController expertController = Get.put(ExpertController(authController.stateId));
+    print(authController.stateId);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
@@ -43,10 +44,17 @@ class expert_profile extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () {
-              //Navigation
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return Login();
-              }));
+              Get.offAll(()=>Login());
+              globals.tokken = "";
+              authController.isAuth(false);
+              authController.stateId=0;
+              authController.stateToken="";              //Navigation
+              Get.snackbar(
+                "Info",
+                "Logout Successful",
+                snackPosition: SnackPosition.BOTTOM,
+              );
+
             },
           ),
         ],
@@ -274,7 +282,7 @@ class expert_profile extends StatelessWidget {
                                       SizedBox(
                                         height: 10.0,
                                       ),
-                                      Text(maxLines: 2, 'Medical Consultation'),
+                                      Text(maxLines: 2, "${getConsultaions()}"),
                                     ],
                                   ),
                                 ],
@@ -355,7 +363,7 @@ class expert_profile extends StatelessWidget {
                                       SizedBox(
                                         height: 10.0,
                                       ),
-                                      Text('4'),
+                                      Text("${expertController.expert?.rate}"),
                                     ],
                                   ),
                                 ],
@@ -427,5 +435,15 @@ class expert_profile extends StatelessWidget {
         ),
       ),
     );
+
   }
+  getConsultaions(){
+    var consultaions="";
+    expertController.expert?.expertConsultationTypes!.forEach((element) {
+      consultaions+="${element.type!}  ";
+    });
+    return consultaions;
+  }
+
+
 }

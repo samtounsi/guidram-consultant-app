@@ -36,8 +36,8 @@ class Counseling {
 }
 AuthController authController=Get.put(AuthController());
 ExpertController expertController = Get.put(ExpertController(authController.stateId));
-
 class _Counseling_SettingsState extends State<Counseling_Settings> {
+
   var PriceController = TextEditingController();
   var startController = TextEditingController();
   var endController = TextEditingController();
@@ -100,6 +100,8 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
 
   @override
   Widget build(BuildContext context) {
+    print(authController.stateId);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],

@@ -8,6 +8,7 @@ import "package:http/http.dart" as http;
 import '../model/ListFreeTime.dart';
 
 class ExpertController extends GetxController {
+
   var isLoading = true.obs;
   var isLoading2=false.obs;
   Expert? expert;
@@ -69,6 +70,7 @@ class ExpertController extends GetxController {
 
   postSettings(cost,duration,List<dynamic> consultings) async {
     try {
+      print(id);
       isLoading(true);
       final Uri uri = Uri.parse("${globals.Uri}/api/expert/$id");
       final headers = {"Authorization": "Bearer ${globals.tokken}","Accept":" application/json"};

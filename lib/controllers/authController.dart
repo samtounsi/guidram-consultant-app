@@ -34,13 +34,13 @@ login(String email,String password)async{
     if(responseData['token'] != null) {
       var token = responseData['token'];
       isAuth(true);
+      Get.offAll(()=>Main_Screen());
+
       //  store in some state management
       globals.tokken=token;
       stateToken=token;
       stateId=responseData['user_id'];
       isExpert=responseData['is_expert'];
-        Get.offAll(()=>Main_Screen());
-
     } else {
       print("errrrrrrrrrrr");
       isAuth(false);
