@@ -19,25 +19,22 @@ class Search_screen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 35.0,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
+                    Icon(
+                      Icons.person_outline_rounded,
+                      color: Colors.purple[800],
                     ),
                     SizedBox(
-                      width: 20.0,
+                      width:20.0 ,                    ),
+                    Text(
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      '${expert.name}',
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          '${expert.name}',
-                        ),
-                      ],
-                    ),
+                    SizedBox(
+                      height:50.0 ,),
                   ],
                 ),
               ],

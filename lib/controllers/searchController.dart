@@ -31,7 +31,7 @@ String search="";
         result["data"].forEach((ex)=>
             experts.add(Experts.fromJson(ex))
         );
-        // experts=filterExperts(search, experts);
+         experts=filterExperts(search, experts);
       }
       else{
         print("error fetching code");
@@ -51,7 +51,7 @@ String search="";
     } else {
       for (int i = 0; i < indexExperts.length; i++) {
         if (("${indexExperts[i].name?.toLowerCase()}"
-            .contains(search.toLowerCase()))) {
+            .contains(search.toLowerCase()))||("${indexExperts[i].experience?.toLowerCase()}".contains(search.toLowerCase()))) {
           res.add(indexExperts[i]);
         }
       }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/controllers/visitedexpertcontroller.dart';
 import 'package:get/get.dart';
+import 'package:guideram/expert_user_screen.dart';
 
 import 'Main_Screen.dart';
 import 'controllers/authController.dart';
@@ -29,7 +30,6 @@ class _Appointment_BookingState extends State<Appointment_Booking> {
     App_book(time: '8:00', duration: '2 hour')
   ];
 
-  /////////////////////////////////id
 var id= Get.arguments;
   VisitedExpertController visitedExpertController = Get.put(VisitedExpertController(Get.arguments));
 
@@ -81,7 +81,7 @@ print(id);
                         Icons.credit_card,
                       ),
                       Text(
-                          '${visitedExpertController.expert!.cost}'
+                          '${visitedExpertController.expert?.cost}'
                       ),
                     ],
                   ),
@@ -425,7 +425,7 @@ print(id);
           fontSize: 18.0,
           fontWeight: FontWeight.w300,
         ),
-        "Duration  ${visitedExpertController.expert!.duration}:00",
+        "Duration  ${visitedExpertController.expert?.duration}:00",
       ),
       SizedBox(
         width: 80.0,

@@ -14,6 +14,7 @@ class ExpertController extends GetxController {
   Expert? expert;
   var expertAppointment = <Appointment>[];
   late int id;
+  var favs=<dynamic>[];
   ExpertController(this.id);
 
 
@@ -104,6 +105,7 @@ class ExpertController extends GetxController {
     }
     finally {
       isLoading(false);
+
     }
   }
 
@@ -148,6 +150,26 @@ class ExpertController extends GetxController {
     }
   }
 
-
+  fetchFavouriteList()async{
+    try {
+      print("fetching");
+      http.Response response = await http.get(
+          Uri.parse("${globals.Uri}/api/user/favorite_list")!,
+          headers: {"Authorization": "Bearer ${globals.tokken}"});
+      if (response.statusCode == 200) {
+        var result = jsonDecode(response.body);
+        favs=result["data"];
+        print(favs);
+      }
+      else {
+        print("error fetching code");
+      }
+    } catch (e) {
+      print("error while getting data is ${e}");
+    }
+    finally {
+      isLoading(false);
+    }
+  }
 }
 

@@ -31,25 +31,22 @@ class ExpertsByType extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 35.0,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
+                    Icon(
+                      Icons.person_outline_rounded,
+                      color: Colors.purple[800],
                     ),
                     SizedBox(
-                      width: 20.0,
-                    ),
-                    Column(
-                      children: [
+                      width:20.0 ,                    ),
                         Text(
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                           '${expert.name}',
                         ),
-                      ],
-                    ),
+                    SizedBox(
+                      height:50.0 ,                    ),
                   ],
                 ),
               ],
@@ -69,7 +66,7 @@ class ExpertsByType extends StatelessWidget {
         ),
         onPressed: () {
           Get.delete<VisitedExpertController>();
-          Get.to(expert_user_screen(),arguments:expert.expertId! );
+          Get.to(expert_user_screen(),arguments:expert.expertId!);
         },
       );
 

@@ -84,7 +84,7 @@ class Main_Screen extends StatelessWidget {
                 size: 28,
               ),
               onPressed: () {
-                  Get.to(()=>Favourite());
+                  Get.to(()=>Favourite(),arguments: authController.stateId);
               },
             ),
       body: Padding(

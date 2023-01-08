@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:guideram/controllers/authController.dart';
+import 'package:guideram/controllers/expertcontroller.dart';
+import 'globalvariables.dart'as globals;
+import 'Main_Screen.dart';
+import 'expert_user_screen.dart';
 
 class Fav_Experts{
   final String name;
@@ -17,22 +24,24 @@ class Favourite extends StatefulWidget {
 }
 
 class _FavouriteState extends State<Favourite> {
-  List<Fav_Experts> fav =[
-    Fav_Experts(name:'Rawan', price:'90 s.p',rate:'4')
-  ];
+  // List<Fav_Experts> fav =[
+  //   Fav_Experts(name:'Rawan', price:'90 s.p',rate:'4')
+  // ];
   bool is_fav = true;
+  ExpertController expertController=Get.put(ExpertController(Get.arguments));
   @override
   Widget build(BuildContext context) {
+    expertController.fetchFavouriteList();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[800],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-           /* //Navigation
+           //Navigation
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Main_Screen();
-            }));*/
+            }));
           },
         ),
         title: Row(
@@ -52,7 +61,12 @@ class _FavouriteState extends State<Favourite> {
           ],
         ),
       ),
-        body: Padding(
+        body: Obx(
+              () => expertController.isLoading.value
+              ? Center(
+            child: CircularProgressIndicator(),
+          )
+              :Padding(
           padding: const EdgeInsets.all(8.0),
           child:SingleChildScrollView(
             child: Column(
@@ -64,21 +78,21 @@ class _FavouriteState extends State<Favourite> {
                   shrinkWrap: true,
                   physics:NeverScrollableScrollPhysics(),
                   scrollDirection:Axis.vertical,
-                  itemBuilder:(context,index) => buildExpertsitem(fav.elementAt(index),context) ,
+                  itemBuilder:(context,index) => buildExpertsitem(expertController.favs[index],context) ,
                   separatorBuilder:(context,index) => SizedBox(
                     height:10,
                   ) ,
-                  itemCount: fav.length,
+                  itemCount: expertController.favs.length,
                 ),
 
               ],
             ),
           ),
       ),
-    );
+    ),);
   }
 
-  Widget buildExpertsitem(Fav_Experts fav,BuildContext context) =>
+  Widget buildExpertsitem(dynamic fav,BuildContext context) =>
       MaterialButton(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,9 +101,16 @@ class _FavouriteState extends State<Favourite> {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 35.0,
-                      backgroundImage:AssetImage('assets/images/user.png'),
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image:DecorationImage(image: NetworkImage("${globals.Uri}/storage/${fav["photo"]}"),fit: BoxFit.cover),
+                        color: const Color(0xffE6E6E6),
+                        border:
+                        Border.all(color: const Color(0xff707070)),
+                      ),
                     ),
                     SizedBox(
                       width: 20.0,
@@ -103,7 +124,7 @@ class _FavouriteState extends State<Favourite> {
                             fontSize: 18.0,
                             fontWeight: FontWeight.w400,
                           ),
-                          '${fav.name}',
+                          '${fav['name']}',
                         ),
                         SizedBox(
                           height:7.0,
@@ -114,7 +135,7 @@ class _FavouriteState extends State<Favourite> {
                             fontSize: 15.0,
                             fontWeight: FontWeight.w300,
                           ),
-                          'Rating: ${fav.rate}',
+                          'Rating: ${fav['rate']}',
                         ),
                         SizedBox(
                           height:7.0,
@@ -125,7 +146,7 @@ class _FavouriteState extends State<Favourite> {
                             fontSize: 15.0,
                             fontWeight: FontWeight.w300,
                           ),
-                          'Session price: ${fav.price}',
+                          'Session price: ${fav['cost']}',
                         ),
                       ],
                     ),
@@ -154,10 +175,6 @@ class _FavouriteState extends State<Favourite> {
           ],
         ),
         onPressed: (){
-          /*Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return expert_user_screen(expert.userId!);
-          }));*/
-
         },
       );
 }

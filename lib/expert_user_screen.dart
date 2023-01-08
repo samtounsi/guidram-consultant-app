@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guideram/Appointment_Booking.dart';
+import 'package:guideram/Counseling_Settings.dart';
 import 'package:guideram/Main_screen.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:guideram/controllers/expertcontroller.dart';
@@ -20,30 +21,33 @@ class _expert_user_screenState extends State<expert_user_screen> {
 
   bool is_fav = true;
   _expert_user_screenState();
-
-  final _dialog = RatingDialog(
-    enableComment: false,
-    starColor: Colors.purple.shade800,
-    starSize: 30,
-    initialRating: 1.0,
-    title: const Text(
-      'Rating',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 25,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    message: const Text(
-      'Tap a star to set your rating',
-      textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 15),
-    ),
-    submitButtonText: 'Ok',
-    onSubmitted: (response) {
-      print('rating: ${response.rating}');
-    },
-  );
+  //
+  // final _dialog = RatingDialog(
+  //   enableComment: false,
+  //   starColor: Colors.purple.shade800,
+  //   starSize: 30,
+  //   initialRating: 1.0,
+  //   title: const Text(
+  //     'Rating',
+  //     textAlign: TextAlign.center,
+  //     style: TextStyle(
+  //       fontSize: 25,
+  //       fontWeight: FontWeight.bold,
+  //     ),
+  //   ),
+  //   message: const Text(
+  //     'Tap a star to set your rating',
+  //     textAlign: TextAlign.center,
+  //     style: TextStyle(fontSize: 15),
+  //   ),
+  //   submitButtonText: 'Ok',
+  //   onSubmitted: (response) {
+  //     print('rating: ${response.rating}');
+  //
+  //   // visitedExpertController.postRating(response.rating);
+  //     /////////////   response.rating
+  //   },
+  // );
 
   void _show1(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -91,7 +95,30 @@ class _expert_user_screenState extends State<expert_user_screen> {
                 showDialog(
                   context: context,
                   // barrierDismissible: true, // set to false if you want to force a rating
-                  builder: (context) => _dialog,
+                  builder: (context) => RatingDialog(
+                    enableComment: false,
+                    starColor: Colors.purple.shade800,
+                    starSize: 30,
+                    initialRating: 1.0,
+                    title: const Text(
+                      'Rating',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    message: const Text(
+                      'Tap a star to set your rating',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    submitButtonText: 'Ok',
+                    onSubmitted: (response) {
+                       visitedExpertController.postRating(response.rating);
+                      /////////////   response.rating
+                    },
+                  ),
                 );
               }),
           Stack(
@@ -102,18 +129,21 @@ class _expert_user_screenState extends State<expert_user_screen> {
                 color: Colors.white,
                 size: 40,
               ),
-              IconButton(
+             authController.isExpert?Icon(Icons.ice_skating):IconButton(
                   icon: Icon(
                     is_fav ? Icons.favorite : Icons.favorite_border_outlined,
                     color: Colors.purple[800],
                   ),
                   onPressed: () {
+
+                    visitedExpertController.postFavorite();
                     setState(() {
                       if (is_fav == false) {
                         is_fav = true;
                         _show1(context);
                       }
                     });
+
                   }),
             ],
           ),
@@ -374,7 +404,7 @@ class _expert_user_screenState extends State<expert_user_screen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              Text('4'),
+                              Text("${visitedExpertController.expert?.rate}"),
                             ],
                           ),
                         ],

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:guideram/Expert_profile.dart';
@@ -418,11 +420,13 @@ class _Counseling_SettingsState extends State<Counseling_Settings> {
                                 if (isTimeValid()) {
                                   expertController.postWorkTime(Select_day,
                                       startController.text, endController.text);
+                                  Get.back();
                                 }
                               },
                               child: Text(
                                 'add',
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w300,
                                 ),

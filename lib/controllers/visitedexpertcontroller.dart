@@ -4,12 +4,13 @@ import "package:guideram/globalvariables.dart" as globals;
 import "package:http/http.dart" as http;
 import '../model/Expert.dart';
 import '../model/ListFreeTime.dart';
-
+import 'package:flutter/material.dart';
 class VisitedExpertController extends GetxController {
   var isLoading = true.obs;
+  var is_fav=false.obs;
   Expert? expert;
   late int id;
-  late dynamic freeTime;
+  late dynamic freeTime=[].obs;
   VisitedExpertController(this.id);
 
   Future <void> onInit() async {
@@ -19,6 +20,7 @@ class VisitedExpertController extends GetxController {
   }
   fetchExpert(int id)async{
     try {
+      isLoading(true);
       http.Response response = await http.get(
           Uri.parse("${globals.Uri}/api/expert/$id")!,
           headers: {"Authorization": "Bearer ${globals.tokken}"});
@@ -87,12 +89,30 @@ class VisitedExpertController extends GetxController {
       );
       print(response.statusCode);
       var responseData = json.decode(response.body);
-      print (responseData);
-      Get.snackbar(
-        "Info",
-        responseData["message"],
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      if(response.statusCode==200 || response.statusCode==201) {
+        for(int i=0;freeTime[dayMap[day]].length;i++) {
+          if(freeTime[dayMap[day]][i]==from){
+            freeTime[dayMap[day]].removeAt(i);
+          }
+
+        }
+        print (responseData);
+        Get.snackbar(
+          "Success",
+          "operation done successfully",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          borderRadius: 10,
+          backgroundColor: Colors.green,
+        );
+      }else{
+        Get.snackbar(
+            "Info",
+            responseData["message"],
+            snackPosition: SnackPosition.BOTTOM
+        );
+      }
+
       print ("hgjkl;jkl;jghjkl;");
 
 
@@ -101,6 +121,87 @@ class VisitedExpertController extends GetxController {
     }
     finally {
       isLoading(false);
+    }
+  }
+
+  postFavorite()async{
+    try {
+      print(id);
+      isLoading(true);
+      final headers = {"Authorization": "Bearer ${globals.tokken}","Accept":" application/json"};
+      var response = await http.post(
+          Uri.parse("${globals.Uri}/api/expert/favourite/$id"),
+          body:{
+          },
+          headers: headers
+      );
+      print (response.statusCode);
+      var responseData = json.decode(response.body);
+
+      if(response.statusCode==200||response.statusCode==201) {
+        is_fav(true);
+        Get.snackbar(
+          "Success",
+          "operation done successfully",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          borderRadius: 10,
+          backgroundColor: Colors.green,
+        );
+      }else{
+        Get.snackbar(
+            "Info",
+            "Already Added",
+            snackPosition: SnackPosition.BOTTOM
+        );
+      }
+
+    } catch (e) {
+      print(e);
+    }
+    finally {
+      isLoading(false);
+
+    }
+  }
+
+  postRating(rate)async{
+    try {
+      print(id);
+      isLoading(true);
+
+      final headers = {"Authorization": "Bearer ${globals.tokken}","Accept":" application/json"};
+      var response = await http.post(
+          Uri.parse("${globals.Uri}/api/expert/rate/$id"),
+          body:{
+            "rate":rate.toString()
+          },
+          headers: headers
+      );
+      print (response.statusCode);
+      var responseData = json.decode(response.body);
+
+      if(response.statusCode==200||response.statusCode==201) {
+        is_fav(true);
+        Get.snackbar(
+            "Info",
+            responseData["message"],
+            snackPosition: SnackPosition.BOTTOM
+        );
+      }
+      else{
+        Get.snackbar(
+            "Info",
+            "Already Rated",
+            snackPosition: SnackPosition.BOTTOM
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+    finally {
+      isLoading(false);
+
     }
   }
 }
